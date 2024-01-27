@@ -1,0 +1,5 @@
+Primary Color : #4CD195
+Secondary Color : #2D3747
+Main Background : #EDF2F6
+
+box-shadow:0.5rem 1rem rgba(0,0,0,.15)
