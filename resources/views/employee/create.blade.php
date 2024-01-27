@@ -22,6 +22,10 @@
                     <input type="email" name="email" class="form-control">
                 </div>
                 <div class="md-form">
+                    <label for="">Password</label>
+                    <input type="password" name="password" class="form-control">
+                </div>
+                <div class="md-form">
                     <label for="nrc_number">Nrc Number</label>
                     <input type="text" name="nrc_number" class="form-control">
                 </div>
@@ -39,7 +43,7 @@
                 </div>
                 <div class="md-form">
                     <label for="">Address</label>
-                    <textarea type="address" name="address" class="md-textarea form-control" rows="3"></textarea>
+                    <textarea type="address" name="address" class="md-textarea form-control"></textarea>
                 </div>
                 <div class="form-group">
                     <label for="">Department</label>

@@ -213,12 +213,19 @@
                 e.preventDefault();
                 $(".page-wrapper").addClass("toggled");
             });
-
+            document.addEventListener('click', function(){
+                if(document.getElementById('show-sidebar').contains(event.target)){
+                    $(".page-wrapper").addClass("toggled");
+                }else if(!document.getElementById('sidebar').contains(event.target)){
+                    $(".page-wrapper").removeClass("toggled");
+                }
+            });
             @if (session('create'))
                 Swal.fire({
                     title: 'Successfully created',
                     text: "{{session('create')}}",
                     icon: 'success',
+                    confirmButtonText: 'Continue'
                 })
             @endif
         });

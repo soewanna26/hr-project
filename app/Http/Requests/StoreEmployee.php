@@ -33,6 +33,7 @@ class StoreEmployee extends FormRequest
             'department_id' => 'required',
             'date_of_join' => 'required',
             'is_present' => 'required',
+            'password' => 'required',
 
         ];
     }
