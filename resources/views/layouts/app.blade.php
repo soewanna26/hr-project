@@ -26,6 +26,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
     <!-- Material Design Bootstrap -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap4.min.css">
+
     <link rel='stylesheet' id='wsl-widget-css'
         href='https://mdbcdn.b-cdn.net/wp-content/plugins/wordpress-social-login/assets/css/style.css?ver=5.6.2'
         type='text/css' media='all' />
@@ -35,14 +37,18 @@
 
     {{-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> --}}
 
+    {{-- daterange --}}
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+
 </head>
 
 <body>
-    <div class="page-wrapper chiller-theme toggled">
+    <div class="page-wrapper chiller-theme">
         <nav id="sidebar" class="sidebar-wrapper">
             <div class="sidebar-content">
                 <div class="sidebar-brand">
-                    <a href="#">pro sidebar</a>
+                    <a href="#">Hr Admin</a>
                     <div id="close-sidebar">
                         <i class="fas fa-times"></i>
                     </div>
@@ -65,116 +71,26 @@
                     </div>
                 </div>
                 <!-- sidebar-header  -->
-                <div class="sidebar-search">
-                    <div>
-                        <div class="input-group">
-                            <input type="text" class="form-control search-menu" placeholder="Search...">
-                            <div class="input-group-append">
-                                <span class="input-group-text">
-                                    <i class="fa fa-search" aria-hidden="true"></i>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <!-- sidebar-search  -->
                 <div class="sidebar-menu">
                     <ul>
                         <li class="header-menu">
-                            <span>General</span>
+                            <span>Menu</span>
                         </li>
-                        <li class="sidebar-dropdown">
+                        <li>
                             <a href="#">
-                                <i class="fa fa-tachometer-alt"></i>
-                                <span>Dashboard</span>
-                                <span class="badge badge-pill badge-warning">New</span>
+                                <i class="fas fa-home"></i>
+                                <span>Home</span>
                             </a>
-                            <div class="sidebar-submenu">
-                                <ul>
-                                    <li>
-                                        <a href="#">Dashboard 1
-                                            <span class="badge badge-pill badge-success">Pro</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Dashboard 2</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Dashboard 3</a>
-                                    </li>
-                                </ul>
-                            </div>
                         </li>
-                        <li class="sidebar-dropdown">
-                            <a href="#">
-                                <i class="fa fa-shopping-cart"></i>
-                                <span>E-commerce</span>
-                                <span class="badge badge-pill badge-danger">3</span>
+                        <li>
+                            <a href="{{ route('employee.index') }}">
+                                <i class="fas fa-users"></i>
+                                <span>Employees</span>
                             </a>
-                            <div class="sidebar-submenu">
-                                <ul>
-                                    <li>
-                                        <a href="#">Products
+                        </li>
 
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Orders</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Credit cart</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="sidebar-dropdown">
-                            <a href="#">
-                                <i class="far fa-gem"></i>
-                                <span>Components</span>
-                            </a>
-                            <div class="sidebar-submenu">
-                                <ul>
-                                    <li>
-                                        <a href="#">General</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Panels</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Tables</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Icons</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Forms</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="sidebar-dropdown">
-                            <a href="#">
-                                <i class="fa fa-chart-line"></i>
-                                <span>Charts</span>
-                            </a>
-                            <div class="sidebar-submenu">
-                                <ul>
-                                    <li>
-                                        <a href="#">Pie chart</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Line chart</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Bar chart</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Histogram</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="sidebar-dropdown">
+                        {{-- <li class="sidebar-dropdown">
                             <a href="#">
                                 <i class="fa fa-globe"></i>
                                 <span>Maps</span>
@@ -189,71 +105,37 @@
                                     </li>
                                 </ul>
                             </div>
-                        </li>
-                        <li class="header-menu">
-                            <span>Extra</span>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="fa fa-book"></i>
-                                <span>Documentation</span>
-                                <span class="badge badge-pill badge-primary">Beta</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="fa fa-calendar"></i>
-                                <span>Calendar</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="fa fa-folder"></i>
-                                <span>Examples</span>
-                            </a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </div>
                 <!-- sidebar-menu  -->
             </div>
             <!-- sidebar-content  -->
-            <div class="sidebar-footer">
-                <a href="#">
-                    <i class="fa fa-bell"></i>
-                    <span class="badge badge-pill badge-warning notification">3</span>
-                </a>
-                <a href="#">
-                    <i class="fa fa-envelope"></i>
-                    <span class="badge badge-pill badge-success notification">7</span>
-                </a>
-                <a href="#">
-                    <i class="fa fa-cog"></i>
-                    <span class="badge-sonar"></span>
-                </a>
-                <a href="#">
-                    <i class="fa fa-power-off"></i>
-                </a>
-            </div>
+
         </nav>
         <!-- sidebar-wrapper  -->
-        <div class="header-menu">
-            <div class="row justify-content-center">
+        <div class="app-bar">
+            <div class="d-flex justify-content-center">
                 <div class="col-md-8">
                     <div class="d-flex justify-content-between">
                         <a id="show-sidebar" href="#">
                             <i class="fas fa-bars"></i>
                         </a>
-                        <h5>@yield('title')</h5>
+                        <h5 class="mb-0">@yield('title')</h5>
                         <a href=""></a>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="py-4">
-            @yield('content')
+        <div class="py-4 content">
+            <div class="d-flex justify-content-center">
+                <div class="col-md-8">
+                    @yield('content')
+                </div>
+            </div>
         </div>
-        <div class="bottom-menu">
-            <div class="row justify-content-center">
+        <div class="bottom-bar">
+            <div class="d-flex justify-content-center">
                 <div class="col-md-8">
                     <div class="d-flex justify-content-between">
                         <a href="">
@@ -287,16 +169,28 @@
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
 
-    {{-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
     </script>
 
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> --}}
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    {{-- datatable --}}
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap4.min.js"></script>
+
+    {{-- daterange --}}
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+
+    <!-- Laravel Javascript Validation -->
+    <script type="text/javascript" src="{{ url('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
+
+    {{-- sweetalert2 --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     {{-- side bar --}}
     <script>
-        jQuery(function($) {
-
+        $(function($) {
             $(".sidebar-dropdown > a").click(function() {
                 $(".sidebar-submenu").slideUp(200);
                 if (
@@ -311,18 +205,25 @@
                 }
             });
 
-            $("#close-sidebar").click(function() {
+            $("#close-sidebar").click(function(e) {
+                e.preventDefault();
                 $(".page-wrapper").removeClass("toggled");
             });
-            $("#show-sidebar").click(function() {
+            $("#show-sidebar").click(function(e) {
+                e.preventDefault();
                 $(".page-wrapper").addClass("toggled");
             });
 
-
-
-
+            @if (session('create'))
+                Swal.fire({
+                    title: 'Successfully created',
+                    text: "{{session('create')}}",
+                    icon: 'success',
+                })
+            @endif
         });
     </script>
+    @yield('script')
 </body>
 
 </html>

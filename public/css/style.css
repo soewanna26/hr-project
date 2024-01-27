@@ -1,3 +1,10 @@
+.badge{
+    padding: 8px;
+    font-size: 12px;
+}
+.btn{
+    font-size: 14px !important;
+}
 .btn-theme {
     color: #fff;
     background-color: #4CD195 !important;
@@ -6,24 +13,28 @@
 .btn-theme:hover{
     color: #fff !important;
 }
-
+/* --------content----- */
+.content{
+    height: 85vh !important;
+    overflow: scroll !important;;
+}
 /* ----------------header menu---------------- */
-.header-menu {
-    padding: 15px 0 !important;
+.app-bar {
+    padding: 10px 0 !important;
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
 }
 /* ----------------header menu---------------- */
-.bottom-menu {
+.bottom-bar {
     width: 100%;
     position: absolute;
     bottom: 0;
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
 }
 
-.bottom-menu a{
+.bottom-bar a{
     text-decoration: none;
     text-align: center;
-    padding: 15px;
+    padding: 5px 25px;
     color: black;
 }
 
@@ -33,6 +44,9 @@
 }
 
 /* ---------side bar ------- */
+.sidebar-header{
+    font-size: 20px;
+}
 @keyframes swing {
     0% {
       transform: rotate(0deg);
@@ -72,9 +86,6 @@
       transform: scale(2);
       opacity: 0;
     }
-  }
-  body {
-    font-size: 0.9rem;
   }
   .page-wrapper .sidebar-wrapper,
   .sidebar-wrapper .sidebar-brand > a,
@@ -479,3 +490,7 @@
       border-right: none;
   }
 
+/* ----datatable */
+.pagination .page-item.active .page-link{
+    background: #4CD195 !important;
+}

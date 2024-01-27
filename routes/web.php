@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -19,5 +20,8 @@ Auth::routes(['register' => false]);
 Route::middleware('auth')->group(function()
 {
     Route::get('/',[PageController::class,'home'])->name('home');
+
+    Route::resource('employee',EmployeeController::class);
+    Route::get('employee/datatable/ssd',[EmployeeController::class,'ssd']);
 }
 );
