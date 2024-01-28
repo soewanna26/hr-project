@@ -1,9 +1,10 @@
 @extends('layouts.app')
 @section('title', 'Employee')
 @section('content')
-<div>
-    <a href="{{route('employee.create')}}" class="btn btn-theme btn-sm"><i class="fas fa-plus-circle"></i> Create Employee</a>
-</div>
+    <div>
+        <a href="{{ route('employee.create') }}" class="btn btn-theme btn-sm"><i class="fas fa-plus-circle"></i> Create
+            Employee</a>
+    </div>
     <div class="card">
         <div class="card-body">
             <table class="table table-bordered Datatable">
@@ -14,6 +15,7 @@
                     <th class="text-center">Phone</th>
                     <th class="text-center">Department</th>
                     <th class="text-center">Is Present</th>
+                    <th class="text-center hidden">Updated At</th>
                 </thead>
             </table>
         </div>
@@ -26,8 +28,7 @@
                 processing: true,
                 serverSide: true,
                 ajax: '/employee/datatable/ssd',
-                columns: [
-                    {
+                columns: [{
                         data: 'employee_id',
                         name: 'employee_id',
                         class: 'text-center'
@@ -57,6 +58,20 @@
                         name: 'is_present',
                         class: 'text-center'
                     },
+                    {
+                        data: 'updated_at',
+                        name: 'updated_at',
+                        class: 'text-center'
+                    },
+                ],
+                order: [
+                    [6, 'desc']
+                ],
+                columnDefs: [
+                    {
+                        target: 6,
+                        visible: false
+                    }
                 ]
             });
         });

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Department;
 use Illuminate\Http\Request;
@@ -23,6 +24,9 @@ class EmployeeController extends Controller
         ->addColumn('department_name',function($each)
         {
            return $each->department ? $each->department->title : '-';
+        })
+        ->editColumn('updated_at',function($each){
+            return Carbon::parse($each->updated_at)->format('Y-m-d H:i:s');
         })
         ->editColumn('is_present',function($each){
             if($each->is_present == 1){
