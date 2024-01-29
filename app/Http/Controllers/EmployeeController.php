@@ -40,7 +40,7 @@ class EmployeeController extends Controller
 
     public function store(StoreEmployee $request)
     {
-        $employee = new User();
+        $employee = new User;
         $employee->employee_id = $request->employee_id;
         $employee->name = $request->name;
         $employee->phone = $request->phone;
