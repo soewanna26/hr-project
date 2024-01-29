@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreEmployee;
-use App\Models\Department;
+use Carbon\Carbon;
 use App\Models\User;
+use App\Models\Department;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
+use Illuminate\Routing\Controller;
+use App\Http\Requests\StoreEmployee;
+use Illuminate\Support\Facades\Hash;
 
 class EmployeeController extends Controller
 {
@@ -21,6 +24,9 @@ class EmployeeController extends Controller
         ->addColumn('department_name',function($each)
         {
            return $each->department ? $each->department->title : '-';
+        })
+        ->editColumn('updated_at',function($each){
+            return Carbon::parse($each->updated_at)->format('Y-m-d H:i:s');
         })
         ->editColumn('is_present',function($each){
             if($each->is_present == 1){
@@ -52,6 +58,7 @@ class EmployeeController extends Controller
         $employee->department_id = $request->department_id;
         $employee->date_of_join = $request->date_of_join;
         $employee->is_present = $request->is_present;
+        $employee->password = Hash::make($request->password);
         $employee->save();
 
         return redirect()->route('employee.index')->with("create","Successfully created employee");

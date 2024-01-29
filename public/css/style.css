@@ -2,6 +2,9 @@
     padding: 8px;
     font-size: 12px;
 }
+.app-bar a{
+    color: #000;
+}
 .btn{
     font-size: 14px !important;
 }
