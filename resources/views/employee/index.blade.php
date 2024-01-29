@@ -7,15 +7,16 @@
     </div>
     <div class="card">
         <div class="card-body">
-            <table class="table table-bordered Datatable">
+            <table class="table table-bordered Datatable" style="width: 100%">
                 <thead>
+                    <th class="text-center no-sort no-search"></th>
                     <th class="text-center">Employee Id</th>
                     <th class="text-center">Name</th>
                     <th class="text-center">Email</th>
                     <th class="text-center">Phone</th>
                     <th class="text-center">Department</th>
                     <th class="text-center">Is Present</th>
-                    <th class="text-center hidden">Updated At</th>
+                    <th class="text-center hidden no-sort no-search">Updated At</th>
                 </thead>
             </table>
         </div>
@@ -25,10 +26,23 @@
     <script>
         $(document).ready(function() {
             $('.Datatable').DataTable({
+                responsive: true,
                 processing: true,
                 serverSide: true,
                 ajax: '/employee/datatable/ssd',
+                language: {
+                    "paginate": {
+                        "previous": "<i class='far fa-arrow-alt-circle-left'></i>",
+                        "next": "<i class='far fa-arrow-alt-circle-right'></i>"
+                    },
+                    "processing":"<img src='/image/loading.gif' style='width:50px'/>",
+                },
                 columns: [{
+                        data: 'plus_icon',
+                        name: 'plus_icon',
+                        class: 'text-center'
+                    },
+                    {
                         data: 'employee_id',
                         name: 'employee_id',
                         class: 'text-center'
@@ -65,13 +79,28 @@
                     },
                 ],
                 order: [
-                    [6, 'desc']
+                    [7, 'desc']
                 ],
-                columnDefs: [
-                    {
+                columnDefs: [{
                         target: 6,
                         visible: false
-                    }
+                    },
+                    {
+                        target: 0,
+                        class: "control"
+                    },
+                    {
+                        target: "no-sort",
+                        orderable: false
+                    },
+                    {
+                        target: "no-search",
+                        searchable: false
+                    },
+                    {
+                        target: "hidden",
+                        visible: false
+                    },
                 ]
             });
         });

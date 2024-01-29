@@ -35,6 +35,9 @@ class EmployeeController extends Controller
                 return '<span class="badge badge-pill badge-danger">Leave</span>';
             }
         })
+        ->addColumn('plus_icon',function($each){
+            return null;
+        })
         ->rawColumns(['is_present'])
         ->make(true);
     }
