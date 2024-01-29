@@ -16,6 +16,7 @@
                     <th class="text-center">Phone</th>
                     <th class="text-center">Department</th>
                     <th class="text-center">Is Present</th>
+                    <th class="text-center">Action</th>
                     <th class="text-center hidden no-sort no-search">Updated At</th>
                 </thead>
             </table>
@@ -30,13 +31,6 @@
                 processing: true,
                 serverSide: true,
                 ajax: '/employee/datatable/ssd',
-                language: {
-                    "paginate": {
-                        "previous": "<i class='far fa-arrow-alt-circle-left'></i>",
-                        "next": "<i class='far fa-arrow-alt-circle-right'></i>"
-                    },
-                    "processing":"<img src='/image/loading.gif' style='width:50px'/>",
-                },
                 columns: [{
                         data: 'plus_icon',
                         name: 'plus_icon',
@@ -73,13 +67,18 @@
                         class: 'text-center'
                     },
                     {
+                        data: 'action',
+                        name: 'action',
+                        class: 'text-center'
+                    },
+                    {
                         data: 'updated_at',
                         name: 'updated_at',
                         class: 'text-center'
                     },
                 ],
                 order: [
-                    [7, 'desc']
+                    [8, 'desc']
                 ],
                 columnDefs: [{
                         target: 6,
@@ -101,7 +100,14 @@
                         target: "hidden",
                         visible: false
                     },
-                ]
+                ],
+                language: {
+                    "paginate": {
+                        "previous": "<i class='far fa-arrow-alt-circle-left'></i>",
+                        "next": "<i class='far fa-arrow-alt-circle-right'></i>"
+                    },
+                },
+
             });
         });
     </script>
