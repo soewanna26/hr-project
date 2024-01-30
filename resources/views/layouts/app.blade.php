@@ -193,9 +193,22 @@
     {{-- sweetalert2 --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    {{-- sweetalert1 --}}
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     {{-- side bar --}}
     <script>
         $(function($) {
+            let token = document.head.querySelector('meta[name="csrf-token"]');
+            if(token){
+                $.ajaxSetup({
+                    headers : {
+                        'X-CSRF-TOKEN' : token.content
+                    }
+                });
+            }else{
+                console.error('CSRF Token not Found')
+            }
+
             $(".sidebar-dropdown > a").click(function() {
                 $(".sidebar-submenu").slideUp(200);
                 if (
@@ -218,17 +231,25 @@
                 e.preventDefault();
                 $(".page-wrapper").addClass("toggled");
             });
-            document.addEventListener('click', function(){
-                if(document.getElementById('show-sidebar').contains(event.target)){
+            document.addEventListener('click', function() {
+                if (document.getElementById('show-sidebar').contains(event.target)) {
                     $(".page-wrapper").addClass("toggled");
-                }else if(!document.getElementById('sidebar').contains(event.target)){
+                } else if (!document.getElementById('sidebar').contains(event.target)) {
                     $(".page-wrapper").removeClass("toggled");
                 }
             });
             @if (session('create'))
                 Swal.fire({
                     title: 'Successfully created',
-                    text: "{{session('create')}}",
+                    text: "{{ session('create') }}",
+                    icon: 'success',
+                    confirmButtonText: 'Continue'
+                })
+            @endif
+            @if (session('edit'))
+                Swal.fire({
+                    title: 'Successfully edited',
+                    text: "{{ session('edit') }}",
                     icon: 'success',
                     confirmButtonText: 'Continue'
                 })

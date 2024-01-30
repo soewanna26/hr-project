@@ -3,7 +3,7 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-            <form action="{{ route('employee.store') }}" method="POST" id="create-form" autocomplete="off">
+            <form action="{{ route('employee.store') }}" method="POST" id="create-form" autocomplete="off" enctype="multipart/form-data">
                 @csrf
                 <div class="md-form">
                     <label for="employee_id">Employee Id</label>
@@ -60,6 +60,14 @@
                     <input type="text" name="date_of_join" class="form-control date_of_join">
                 </div>
                 <div class="form-group">
+                    <label for="profile_img">Profile Image</label>
+                    <input type="file" name="profile_img" class="form-control p-1" id="profile_img">
+
+                    <div class="preview_img my-2">
+
+                    </div>
+                </div>
+                <div class="form-group">
                     <label for="">Is Present</label>
                     <select name="is_present" class="form-control">
                         <option value="" disabled selected>Selected</option>
@@ -98,6 +106,13 @@
                     "format": "YYYY/MM/DD",
                 }
             });
+            $('#profile_img').on('change',function(){
+                var file_length = document.getElementById('profile_img').files.length;
+                $('.preview_img').html('');
+            for (var i = 0; i < file_length; i++){
+                $('.preview_img').append(`<img src="${URL.createObjectURL(event.target.files[i])}"/>`)
+            }
+            })
         });
     </script>
 @endsection

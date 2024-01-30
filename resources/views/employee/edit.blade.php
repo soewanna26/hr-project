@@ -3,12 +3,12 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-            <form action="{{ route('employee.update', $employee->id) }}" method="POST" id="edit-form" autocomplete="off">
+            <form action="{{ route('employee.update', $employee->id) }}" method="POST" id="edit-form" autocomplete="off" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="md-form">
                     <label for="employee_id">Employee Id</label>
-                    <input type="text" name="employee_id" class="form-control" value="{{ $employee->id }}">
+                    <input type="text" name="employee_id" class="form-control" value="{{ $employee->employee_id }}">
                 </div>
                 <div class="md-form">
                     <label for="name">Name</label>
@@ -51,10 +51,7 @@
                     <select name="department_id" class="form-control">
                         <option value="" disabled selected>Selected</option>
                         @foreach ($departments as $department)
-                            <option value="{{ $department->id }}"
-                            @if ($employee->department_id == $department->id)
-                                selected
-                            @endif>
+                            <option value="{{ $department->id }}" @if ($employee->department_id == $department->id) selected @endif>
                                 {{ $department->title }}</option>
                         @endforeach
 
@@ -65,6 +62,18 @@
                     <input type="text" name="date_of_join" class="form-control date_of_join"
                         value="{{ $employee->date_of_join }}">
                 </div>
+
+                <div class="form-group">
+                    <label for="profile_img">Profile Image</label>
+                    <input type="file" name="profile_img" class="form-control p-1" id="profile_img">
+
+                    <div class="preview_img my-2">
+                        @if ($employee->profile_img)
+                            <img src="{{ $employee->profile_img_path() }}" alt="">
+                        @endif
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <label for="">Is Present</label>
                     <select name="is_present" class="form-control">
@@ -104,6 +113,13 @@
                     "format": "YYYY/MM/DD",
                 }
             });
+            $('#profile_img').on('change', function() {
+                var file_length = document.getElementById('profile_img').files.length;
+                $('.preview_img').html('');
+                for (var i = 0; i < file_length; i++) {
+                    $('.preview_img').append(`<img src="${URL.createObjectURL(event.target.files[i])}"/>`)
+                }
+            })
         });
     </script>
 @endsection

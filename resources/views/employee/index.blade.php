@@ -16,7 +16,7 @@
                     <th class="text-center">Phone</th>
                     <th class="text-center">Department</th>
                     <th class="text-center">Is Present</th>
-                    <th class="text-center">Action</th>
+                    <th class="text-center no-sort">Action</th>
                     <th class="text-center hidden no-sort no-search">Updated At</th>
                 </thead>
             </table>
@@ -106,9 +106,31 @@
                         "previous": "<i class='far fa-arrow-alt-circle-left'></i>",
                         "next": "<i class='far fa-arrow-alt-circle-right'></i>"
                     },
+                    "processing": "<img src='/image/loading.gif' style='width:50%'/>"
                 },
 
             });
+            $(document).on("click", ".delete-btn", function(e) {
+                e.preventDefault();
+                var id = $(this).data("id");
+                swal({
+                        title: "Are you sure want to delete?",
+                        buttons: true,
+                        dangerMode: true,
+                    })
+                    .then((willDelete) => {
+                        if (willDelete) {
+
+                            $.ajax({
+                                    method: "DELETE",
+                                    url: `/employee/${id}`,
+                                })
+                                .done(function(res) {
+                                    table.ajax.reload();
+                                });
+                        }
+                    });
+            })
         });
     </script>
 @endsection

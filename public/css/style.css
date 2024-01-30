@@ -1,9 +1,9 @@
+body{
+    background: #EDF2F6 !important;
+}
 .badge {
     padding: 8px;
     font-size: 12px;
-}
-.app-bar a {
-    color: #000;
 }
 .btn {
     font-size: 14px !important;
@@ -23,11 +23,16 @@
 }
 /* ----------------header menu---------------- */
 .app-bar {
+    background: #fff !important;
     padding: 10px 0 !important;
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
 }
+.app-bar a {
+    color: #000;
+}
 /* ----------------header menu---------------- */
 .bottom-bar {
+    background: #fff !important;
     width: 100%;
     position: absolute;
     bottom: 0;
@@ -541,4 +546,23 @@ table.dataTable > tbody > tr.child ul.dtr-details > li {
     div.dataTables_wrapper div.dataTables_paginate ul.pagination {
         justify-content: start !important;
     }
+}
+
+/* ----- preview image----- */
+.preview_img img{
+    width: 100px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    margin: 3px;
+}
+.profile-img{
+    width: 140px;
+    height: 140px;
+    border-radius: 100%;
+    border: 1px solid #5cb85c;
+    padding: 3px;
+
+}
+.dash-border{
+    border-left: 2px dashed #ddd;
 }
