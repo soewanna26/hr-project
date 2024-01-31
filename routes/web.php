@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PageController;
@@ -27,5 +28,8 @@ Route::middleware('auth')->group(function()
     Route::get('employee/datatable/ssd',[EmployeeController::class,'ssd']);
 
     Route::get('profile',[ProfileController::class,'profile'])->name('profile.profile');
+
+    Route::resource('department',DepartmentController::class);
+    Route::get('department/datatable/ssd',[DepartmentController::class,'ssd']);
 }
 );

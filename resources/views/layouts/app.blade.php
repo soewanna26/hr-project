@@ -59,14 +59,14 @@
                 <div class="sidebar-header">
                     <div class="user-pic">
                         <img class="img-responsive img-rounded"
-                            src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
-                            alt="User picture">
+                            src="{{auth()->user()->profile_img_path()}}"
+                            alt="">
                     </div>
                     <div class="user-info">
-                        <span class="user-name">Jhon
-                            <strong>Smith</strong>
+                        <span class="user-name">
+                            {{auth()->user()->name}}
                         </span>
-                        <span class="user-role">Administrator</span>
+                        <span class="user-role">{{auth()->user()->department ? auth()->user()->department->title:"No Department"}}</span>
                         <span class="user-status">
                             <i class="fa fa-circle"></i>
                             <span>Online</span>
@@ -90,6 +90,12 @@
                             <a href="{{ route('employee.index') }}">
                                 <i class="fas fa-users"></i>
                                 <span>Employees</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('department.index') }}">
+                                <i class="fas fa-sitemap"></i>
+                                <span>Department</span>
                             </a>
                         </li>
 
@@ -241,6 +247,8 @@
                 e.preventDefault();
                 $(".page-wrapper").addClass("toggled");
             });
+
+            @if(request()->is('/'))
             document.addEventListener('click', function() {
                 if (document.getElementById('show-sidebar').contains(event.target)) {
                     $(".page-wrapper").addClass("toggled");
@@ -248,6 +256,8 @@
                     $(".page-wrapper").removeClass("toggled");
                 }
             });
+            @endif
+
             @if (session('create'))
                 Swal.fire({
                     title: 'Successfully created',
