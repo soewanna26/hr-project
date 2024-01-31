@@ -98,6 +98,12 @@
                                 <span>Department</span>
                             </a>
                         </li>
+                        <li>
+                            <a href="{{ route('role.index') }}">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>Role</span>
+                            </a>
+                        </li>
 
                         {{-- <li class="sidebar-dropdown">
                             <a href="#">

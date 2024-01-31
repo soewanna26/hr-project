@@ -25,8 +25,9 @@
 @endsection
 @section('script')
     <script>
+        var table;
         $(document).ready(function() {
-            $('.Datatable').DataTable({
+           table = $('.Datatable').DataTable({
                 ajax: '/employee/datatable/ssd',
                 columns: [{
                         data: 'plus_icon',

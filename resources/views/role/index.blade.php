@@ -1,16 +1,16 @@
 @extends('layouts.app')
-@section('title', 'Department')
+@section('title', 'Role')
 @section('content')
     <div>
-        <a href="{{ route('department.create') }}" class="btn btn-theme btn-sm"><i class="fas fa-plus-circle"></i> Create
-            Department</a>
+        <a href="{{ route('role.create') }}" class="btn btn-theme btn-sm"><i class="fas fa-plus-circle"></i> Create
+            Role</a>
     </div>
     <div class="card">
         <div class="card-body">
             <table class="table table-bordered Datatable" style="width: 100%">
                 <thead>
                     <th class="text-center no-sort no-search"></th>
-                    <th class="text-center">Title</th>
+                    <th class="text-center">Name</th>
                     <th class="text-center no-sort">Action</th>
                     <th class="text-center hidden no-sort no-search">Updated At</th>
                 </thead>
@@ -22,16 +22,16 @@
     <script>
         var table;
         $(document).ready(function() {
-          table = $('.Datatable').DataTable({
-                ajax: '/department/datatable/ssd',
+            table = $('.Datatable').DataTable({
+                ajax: '/role/datatable/ssd',
                 columns: [{
                         data: 'plus_icon',
                         title: 'plus_icon',
                         class: 'text-center',
                     },
                     {
-                        data: 'title',
-                        name: 'title',
+                        data: 'name',
+                        name: 'name',
                         class: 'text-center',
                     },
                     {
@@ -62,7 +62,7 @@
 
                             $.ajax({
                                     method: "DELETE",
-                                    url: `/department/${id}`,
+                                    url: `/role/${id}`,
                                 })
                                 .done(function(res) {
                                     table.ajax.reload();
