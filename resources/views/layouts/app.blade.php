@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>@yield('title')</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -121,9 +121,16 @@
             <div class="d-flex justify-content-center">
                 <div class="col-md-8">
                     <div class="d-flex justify-content-between">
-                        <a id="show-sidebar" href="#">
-                            <i class="fas fa-bars"></i>
+                        @if (request()->is('/'))
+                            <a id="show-sidebar" href="#">
+                                <i class="fas fa-bars"></i>
+                            </a>
+                        @else
+                        <a id="back-btn" href="#">
+                            <i class="fas fa-chevron-left"></i>
                         </a>
+                        @endif
+
                         <h5 class="mb-0">@yield('title')</h5>
                         <a href=""></a>
                     </div>
@@ -141,7 +148,7 @@
             <div class="d-flex justify-content-center">
                 <div class="col-md-8">
                     <div class="d-flex justify-content-between">
-                        <a href="">
+                        <a href="{{route('home')}}">
                             <i class="fas fa-home"></i>
                             <p class="mb-0">Home</p>
                         </a>
@@ -153,9 +160,9 @@
                             <i class="fas fa-home"></i>
                             <p class="mb-0">Home</p>
                         </a>
-                        <a href="">
-                            <i class="fas fa-home"></i>
-                            <p class="mb-0">Home</p>
+                        <a href="{{route('profile.profile')}}">
+                            <i class="fas fa-user"></i>
+                            <p class="mb-0">Profile</p>
                         </a>
                     </div>
                 </div>
@@ -182,6 +189,9 @@
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
+    {{-- datatable search mark --}}
+    <script src="https://cdn.jsdelivr.net/g/mark.js(jquery.mark.min.js)"></script>
+    <script src="https://cdn.datatables.net/plug-ins/1.10.13/features/mark.js/datatables.mark.js"></script>
 
     {{-- daterange --}}
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
@@ -199,13 +209,13 @@
     <script>
         $(function($) {
             let token = document.head.querySelector('meta[name="csrf-token"]');
-            if(token){
+            if (token) {
                 $.ajaxSetup({
-                    headers : {
-                        'X-CSRF-TOKEN' : token.content
+                    headers: {
+                        'X-CSRF-TOKEN': token.content
                     }
                 });
-            }else{
+            } else {
                 console.error('CSRF Token not Found')
             }
 
@@ -254,6 +264,41 @@
                     confirmButtonText: 'Continue'
                 })
             @endif
+            $.extend(true, $.fn.dataTable.defaults, {
+                responsive: true,
+                processing: true,
+                serverSide: true,
+                mark: true,
+                columnDefs: [{
+                        target: 0,
+                        class: "control"
+                    },
+                    {
+                        target: "no-sort",
+                        orderable: false
+                    },
+                    {
+                        target: "no-search",
+                        searchable: false
+                    },
+                    {
+                        target: "hidden",
+                        visible: false
+                    },
+                ],
+                language: {
+                    "paginate": {
+                        "previous": "<i class='far fa-arrow-alt-circle-left'></i>",
+                        "next": "<i class='far fa-arrow-alt-circle-right'></i>"
+                    },
+                    "processing": "<img src='/image/loading.gif' style='width:50%'/>"
+                },
+            });
+            $('#back-btn').on('click', function(e){
+                e.preventDefault();
+                window.history.go(-1);
+                return false;
+            })
         });
     </script>
     @yield('script')

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -24,5 +25,7 @@ Route::middleware('auth')->group(function()
 
     Route::resource('employee',EmployeeController::class);
     Route::get('employee/datatable/ssd',[EmployeeController::class,'ssd']);
+
+    Route::get('profile',[ProfileController::class,'profile'])->name('profile.profile');
 }
 );

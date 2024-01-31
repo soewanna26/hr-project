@@ -19,10 +19,22 @@ class EmployeeController extends Controller
     {
         return view('employee.index');
     }
+
+    // Data tables
     public function ssd(Request $request)
     {
         $employee = User::with('department');
+
         return DataTables::of($employee)
+            ->filterColumn('department_name', function ($query, $keyword) {
+                $query->whereHas('department', function ($q1) use ($keyword) {
+                    $q1->where('title', 'like', '%'. $keyword . '%');
+                });
+            })
+            ->addColumn('profile_img', function ($each) {
+                return '<img src="' . $each->profile_img_path() . '" alt="" class="profile-thumbnail"/> <p class="my-1">
+                ' . $each->name . '</p>';
+            })
             ->addColumn('department_name', function ($each) {
                 return $each->department ? $each->department->title : '-';
             })
@@ -39,15 +51,14 @@ class EmployeeController extends Controller
             ->addColumn('action', function ($each) {
                 $show_icon = '<a href="' . route('employee.show', $each->id) . '" class="text-primary"><i class="fas fa-info-circle"></i></a>';
                 $edit_icon = '<a href="' . route('employee.edit', $each->id) . '" class="text-warning"><i class="fas fa-edit"></i></a>';
-                $delete_icon = '<a href="#" class="text-danger delete-btn" data-id="'. $each->id .'"><i class="fas fa-trash-alt"></i></a>';
+                $delete_icon = '<a href="#" class="text-danger delete-btn" data-id="' . $each->id . '"><i class="fas fa-trash-alt"></i></a>';
 
                 return '<div class="action-icon">' . $show_icon  . $edit_icon . $delete_icon . '</div>';
             })
             ->addColumn('plus_icon', function ($each) {
                 return null;
             })
-            ->rawColumns(['is_present'])
-            ->rawColumns(['action'])
+            ->rawColumns(['is_present', 'action', 'profile_img'])
             ->make(true);
     }
     public function create()

@@ -1,5 +1,5 @@
-body{
-    background: #EDF2F6 !important;
+body {
+    background: #edf2f6 !important;
 }
 .badge {
     padding: 8px;
@@ -503,7 +503,7 @@ body{
 }
 
 /* action icon */
-.action-icon a{
+.action-icon a {
     padding: 5px;
     background: #eee;
     border-radius: 5px;
@@ -512,6 +512,7 @@ body{
     line-height: 25px;
     margin: 3px !important;
     display: inline-block;
+    text-align: center !important;
 }
 
 /* ----datatable */
@@ -549,20 +550,34 @@ table.dataTable > tbody > tr.child ul.dtr-details > li {
 }
 
 /* ----- preview image----- */
-.preview_img img{
+.preview_img img {
     width: 100px;
     border-radius: 5px;
     border: 1px solid #ddd;
     margin: 3px;
 }
-.profile-img{
+.profile-img {
     width: 140px;
     height: 140px;
     border-radius: 100%;
     border: 1px solid #5cb85c;
     padding: 3px;
-
 }
-.dash-border{
+.profile-thumbnail {
+    width: 70px;
+    height: 70px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    padding: 3px;
+}
+.dash-border {
     border-left: 2px dashed #ddd;
+}
+mark {
+    background: #4cd195 !important;
+    padding: 0px !important;
+}
+
+.table td, .table th {
+    vertical-align: middle !important;
 }

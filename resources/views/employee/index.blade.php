@@ -10,8 +10,8 @@
             <table class="table table-bordered Datatable" style="width: 100%">
                 <thead>
                     <th class="text-center no-sort no-search"></th>
+                    <th class="text-center no-sort"></th>
                     <th class="text-center">Employee Id</th>
-                    <th class="text-center">Name</th>
                     <th class="text-center">Email</th>
                     <th class="text-center">Phone</th>
                     <th class="text-center">Department</th>
@@ -27,9 +27,6 @@
     <script>
         $(document).ready(function() {
             $('.Datatable').DataTable({
-                responsive: true,
-                processing: true,
-                serverSide: true,
                 ajax: '/employee/datatable/ssd',
                 columns: [{
                         data: 'plus_icon',
@@ -37,13 +34,13 @@
                         class: 'text-center'
                     },
                     {
-                        data: 'employee_id',
-                        name: 'employee_id',
+                        data: 'profile_img',
+                        name: 'profile_img',
                         class: 'text-center'
                     },
                     {
-                        data: 'name',
-                        name: 'name',
+                        data: 'employee_id',
+                        name: 'employee_id',
                         class: 'text-center'
                     },
                     {
@@ -80,35 +77,6 @@
                 order: [
                     [8, 'desc']
                 ],
-                columnDefs: [{
-                        target: 6,
-                        visible: false
-                    },
-                    {
-                        target: 0,
-                        class: "control"
-                    },
-                    {
-                        target: "no-sort",
-                        orderable: false
-                    },
-                    {
-                        target: "no-search",
-                        searchable: false
-                    },
-                    {
-                        target: "hidden",
-                        visible: false
-                    },
-                ],
-                language: {
-                    "paginate": {
-                        "previous": "<i class='far fa-arrow-alt-circle-left'></i>",
-                        "next": "<i class='far fa-arrow-alt-circle-right'></i>"
-                    },
-                    "processing": "<img src='/image/loading.gif' style='width:50%'/>"
-                },
-
             });
             $(document).on("click", ".delete-btn", function(e) {
                 e.preventDefault();
