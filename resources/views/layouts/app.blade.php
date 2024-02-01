@@ -34,9 +34,7 @@
     <link rel='stylesheet' id='wsl-widget-css'
         href='https://mdbcdn.b-cdn.net/wp-content/plugins/wordpress-social-login/assets/css/style.css?ver=5.6.2'
         type='text/css' media='all' />
-    <link rel='stylesheet' id='compiled.css-css'
-        href='https://mdbcdn.b-cdn.net/wp-content/themes/mdbootstrap4/css/compiled-4.19.2.min.css?ver=4.19.2'
-        type='text/css' media='all' />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.20.0/css/mdb.min.css">
 
     {{-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> --}}
 
@@ -58,15 +56,15 @@
                 </div>
                 <div class="sidebar-header">
                     <div class="user-pic">
-                        <img class="img-responsive img-rounded"
-                            src="{{auth()->user()->profile_img_path()}}"
+                        <img class="img-responsive img-rounded" src="{{ auth()->user()->profile_img_path() }}"
                             alt="">
                     </div>
                     <div class="user-info">
                         <span class="user-name">
-                            {{auth()->user()->name}}
+                            {{ auth()->user()->name }}
                         </span>
-                        <span class="user-role">{{auth()->user()->department ? auth()->user()->department->title:"No Department"}}</span>
+                        <span
+                            class="user-role">{{ auth()->user()->department ? auth()->user()->department->title : 'No Department' }}</span>
                         <span class="user-status">
                             <i class="fa fa-circle"></i>
                             <span>Online</span>
@@ -100,8 +98,14 @@
                         </li>
                         <li>
                             <a href="{{ route('role.index') }}">
-                                <i class="fas fa-shield-alt"></i>
+                                <i class="fas fa-user-shield"></i>
                                 <span>Role</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('permission.index') }}">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>Permission</span>
                             </a>
                         </li>
 
@@ -138,9 +142,9 @@
                                 <i class="fas fa-bars"></i>
                             </a>
                         @else
-                        <a id="back-btn" href="#">
-                            <i class="fas fa-chevron-left"></i>
-                        </a>
+                            <a id="back-btn" href="#">
+                                <i class="fas fa-chevron-left"></i>
+                            </a>
                         @endif
 
                         <h5 class="mb-0">@yield('title')</h5>
@@ -160,7 +164,7 @@
             <div class="d-flex justify-content-center">
                 <div class="col-md-8">
                     <div class="d-flex justify-content-between">
-                        <a href="{{route('home')}}">
+                        <a href="{{ route('home') }}">
                             <i class="fas fa-home"></i>
                             <p class="mb-0">Home</p>
                         </a>
@@ -172,7 +176,7 @@
                             <i class="fas fa-home"></i>
                             <p class="mb-0">Home</p>
                         </a>
-                        <a href="{{route('profile.profile')}}">
+                        <a href="{{ route('profile.profile') }}">
                             <i class="fas fa-user"></i>
                             <p class="mb-0">Profile</p>
                         </a>
@@ -254,14 +258,14 @@
                 $(".page-wrapper").addClass("toggled");
             });
 
-            @if(request()->is('/'))
-            document.addEventListener('click', function() {
-                if (document.getElementById('show-sidebar').contains(event.target)) {
-                    $(".page-wrapper").addClass("toggled");
-                } else if (!document.getElementById('sidebar').contains(event.target)) {
-                    $(".page-wrapper").removeClass("toggled");
-                }
-            });
+            @if (request()->is('/'))
+                document.addEventListener('click', function() {
+                    if (document.getElementById('show-sidebar').contains(event.target)) {
+                        $(".page-wrapper").addClass("toggled");
+                    } else if (!document.getElementById('sidebar').contains(event.target)) {
+                        $(".page-wrapper").removeClass("toggled");
+                    }
+                });
             @endif
 
             @if (session('create'))
@@ -310,7 +314,7 @@
                     "processing": "<img src='/image/loading.gif' style='width:50%'/>"
                 },
             });
-            $('#back-btn').on('click', function(e){
+            $('#back-btn').on('click', function(e) {
                 e.preventDefault();
                 window.history.go(-1);
                 return false;

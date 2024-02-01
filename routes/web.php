@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PermissionController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
@@ -35,5 +36,8 @@ Route::middleware('auth')->group(function()
 
     Route::resource('role',RoleController::class);
     Route::get('role/datatable/ssd',[RoleController::class,'ssd']);
+
+    Route::resource('permission',PermissionController::class);
+    Route::get('permission/datatable/ssd',[PermissionController::class,'ssd']);
 }
 );
