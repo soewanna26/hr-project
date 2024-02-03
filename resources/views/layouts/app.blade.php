@@ -40,7 +40,8 @@
 
     {{-- daterange --}}
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-
+    {{-- select2 --}}
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
 </head>
 
@@ -84,30 +85,39 @@
                                 <span>Home</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="{{ route('employee.index') }}">
-                                <i class="fas fa-users"></i>
-                                <span>Employees</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('department.index') }}">
-                                <i class="fas fa-sitemap"></i>
-                                <span>Department</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('role.index') }}">
-                                <i class="fas fa-user-shield"></i>
-                                <span>Role</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('permission.index') }}">
-                                <i class="fas fa-shield-alt"></i>
-                                <span>Permission</span>
-                            </a>
-                        </li>
+                        @can('view_employee')
+                            <li>
+                                <a href="{{ route('employee.index') }}">
+                                    <i class="fas fa-users"></i>
+                                    <span>Employees</span>
+                                </a>
+                            </li>
+                        @endcan
+                        @can('view_department')
+                            <li>
+                                <a href="{{ route('department.index') }}">
+                                    <i class="fas fa-sitemap"></i>
+                                    <span>Department</span>
+                                </a>
+                            </li>
+                        @endcan
+                        @can('view_role')
+                            <li>
+                                <a href="{{ route('role.index') }}">
+                                    <i class="fas fa-user-shield"></i>
+                                    <span>Role</span>
+                                </a>
+                            </li>
+                        @endcan
+                        @can('view_permission')
+                            <li>
+                                <a href="{{ route('permission.index') }}">
+                                    <i class="fas fa-shield-alt"></i>
+                                    <span>Permission</span>
+                                </a>
+                            </li>
+                        @endcan
+
 
                         {{-- <li class="sidebar-dropdown">
                             <a href="#">
@@ -221,6 +231,8 @@
 
     {{-- sweetalert1 --}}
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    {{-- select2 --}}
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     {{-- side bar --}}
     <script>
         $(function($) {
@@ -319,6 +331,7 @@
                 window.history.go(-1);
                 return false;
             })
+            $('.select-customize').select2();
         });
     </script>
     @yield('script')

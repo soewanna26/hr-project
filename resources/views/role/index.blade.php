@@ -1,16 +1,19 @@
 @extends('layouts.app')
 @section('title', 'Role')
 @section('content')
-    <div>
-        <a href="{{ route('role.create') }}" class="btn btn-theme btn-sm"><i class="fas fa-plus-circle"></i> Create
-            Role</a>
-    </div>
+    @can('create_role')
+        <div>
+            <a href="{{ route('role.create') }}" class="btn btn-theme btn-sm"><i class="fas fa-plus-circle"></i> Create
+                Role</a>
+        </div>
+    @endcan
     <div class="card">
         <div class="card-body">
             <table class="table table-bordered Datatable" style="width: 100%">
                 <thead>
                     <th class="text-center no-sort no-search"></th>
                     <th class="text-center">Name</th>
+                    <th class="text-center">Permissions</th>
                     <th class="text-center no-sort">Action</th>
                     <th class="text-center hidden no-sort no-search">Updated At</th>
                 </thead>
@@ -35,6 +38,11 @@
                         class: 'text-center',
                     },
                     {
+                        data: 'permissions',
+                        name: 'permissions',
+                        class: 'text-center',
+                    },
+                    {
                         data: 'action',
                         name: 'action',
                         class: 'text-center'
@@ -46,7 +54,7 @@
                     },
                 ],
                 order: [
-                    [3, 'desc']
+                    [4, 'desc']
                 ],
             });
             $(document).on("click", ".delete-btn", function(e) {

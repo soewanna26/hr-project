@@ -1,10 +1,13 @@
 @extends('layouts.app')
 @section('title', 'Employee')
 @section('content')
-    <div>
-        <a href="{{ route('employee.create') }}" class="btn btn-theme btn-sm"><i class="fas fa-plus-circle"></i> Create
-            Employee</a>
-    </div>
+    @can('create_employee')
+        <div>
+            <a href="{{ route('employee.create') }}" class="btn btn-theme btn-sm"><i class="fas fa-plus-circle"></i> Create
+                Employee</a>
+        </div>
+    @endcan
+
     <div class="card">
         <div class="card-body">
             <table class="table table-bordered Datatable" style="width: 100%">
@@ -15,6 +18,7 @@
                     <th class="text-center">Email</th>
                     <th class="text-center">Phone</th>
                     <th class="text-center">Department</th>
+                    <th class="text-center">Role Or Designation</th>
                     <th class="text-center">Is Present</th>
                     <th class="text-center no-sort">Action</th>
                     <th class="text-center hidden no-sort no-search">Updated At</th>
@@ -27,7 +31,7 @@
     <script>
         var table;
         $(document).ready(function() {
-           table = $('.Datatable').DataTable({
+            table = $('.Datatable').DataTable({
                 ajax: '/employee/datatable/ssd',
                 columns: [{
                         data: 'plus_icon',
@@ -60,6 +64,11 @@
                         class: 'text-center'
                     },
                     {
+                        data: 'role_name',
+                        name: 'role_name',
+                        class: 'text-center'
+                    },
+                    {
                         data: 'is_present',
                         name: 'is_present',
                         class: 'text-center'
@@ -76,7 +85,7 @@
                     },
                 ],
                 order: [
-                    [8, 'desc']
+                    [9, 'desc']
                 ],
             });
             $(document).on("click", ".delete-btn", function(e) {

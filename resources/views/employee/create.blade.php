@@ -3,7 +3,8 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-            <form action="{{ route('employee.store') }}" method="POST" id="create-form" autocomplete="off" enctype="multipart/form-data">
+            <form action="{{ route('employee.store') }}" method="POST" id="create-form" autocomplete="off"
+                enctype="multipart/form-data">
                 @csrf
                 <div class="md-form">
                     <label for="employee_id">Employee Id</label>
@@ -32,7 +33,6 @@
                 <div class="form-group">
                     <label for="gender">Gender</label>
                     <select name="gender" class="form-control">
-                        <option value="" disabled selected>Selected</option>
                         <option value="male">Male</option>
                         <option value="female">Female</option>
                     </select>
@@ -48,15 +48,22 @@
                 <div class="form-group">
                     <label for="">Department</label>
                     <select name="department_id" class="form-control">
-                        <option value="" disabled selected>Selected</option>
                         @foreach ($departments as $department)
                             <option value="{{ $department->id }}">{{ $department->title }}</option>
                         @endforeach
 
                     </select>
                 </div>
+                <div class="form-group">
+                    <label for="">Role Or Designation</label>
+                    <select name="roles[]" class="form-control select-customize" multiple>
+                        @foreach ($roles as $role)
+                            <option value="{{ $role->name }}">{{ $role->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
                 <div class="md-form">
-                    <label for="">Birthday</label>
+                    <label for="">Join Date</label>
                     <input type="text" name="date_of_join" class="form-control date_of_join">
                 </div>
                 <div class="form-group">
@@ -70,7 +77,6 @@
                 <div class="form-group">
                     <label for="">Is Present</label>
                     <select name="is_present" class="form-control">
-                        <option value="" disabled selected>Selected</option>
                         <option value="1">Yes</option>
                         <option value="0">No</option>
                     </select>
@@ -106,12 +112,12 @@
                     "format": "YYYY/MM/DD",
                 }
             });
-            $('#profile_img').on('change',function(){
+            $('#profile_img').on('change', function() {
                 var file_length = document.getElementById('profile_img').files.length;
                 $('.preview_img').html('');
-            for (var i = 0; i < file_length; i++){
-                $('.preview_img').append(`<img src="${URL.createObjectURL(event.target.files[i])}"/>`)
-            }
+                for (var i = 0; i < file_length; i++) {
+                    $('.preview_img').append(`<img src="${URL.createObjectURL(event.target.files[i])}"/>`)
+                }
             })
         });
     </script>

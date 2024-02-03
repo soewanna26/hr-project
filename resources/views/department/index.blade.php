@@ -1,10 +1,13 @@
 @extends('layouts.app')
 @section('title', 'Department')
 @section('content')
-    <div>
-        <a href="{{ route('department.create') }}" class="btn btn-theme btn-sm"><i class="fas fa-plus-circle"></i> Create
-            Department</a>
-    </div>
+    @can('create_department')
+        <div>
+            <a href="{{ route('department.create') }}" class="btn btn-theme btn-sm"><i class="fas fa-plus-circle"></i> Create
+                Department</a>
+        </div>
+    @endcan
+
     <div class="card">
         <div class="card-body">
             <table class="table table-bordered Datatable" style="width: 100%">
@@ -22,7 +25,7 @@
     <script>
         var table;
         $(document).ready(function() {
-          table = $('.Datatable').DataTable({
+            table = $('.Datatable').DataTable({
                 ajax: '/department/datatable/ssd',
                 columns: [{
                         data: 'plus_icon',

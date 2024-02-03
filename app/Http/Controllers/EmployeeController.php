@@ -12,23 +12,30 @@ use App\Http\Requests\StoreEmployee;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UpdateEmployee;
 use Illuminate\Support\Facades\Storage;
+use Spatie\Permission\Models\Role;
 
 class EmployeeController extends Controller
 {
     public function index()
     {
+        if (!auth()->user()->can('view_employee')) {
+            abort(403, 'Unauthorized action');
+        }
         return view('employee.index');
     }
 
     // Data tables
     public function ssd(Request $request)
     {
+        if (!auth()->user()->can('view_employee')) {
+            abort(403, 'Unauthorized action');
+        }
         $employee = User::with('department');
 
         return DataTables::of($employee)
             ->filterColumn('department_name', function ($query, $keyword) {
                 $query->whereHas('department', function ($q1) use ($keyword) {
-                    $q1->where('title', 'like', '%'. $keyword . '%');
+                    $q1->where('title', 'like', '%' . $keyword . '%');
                 });
             })
             ->addColumn('profile_img', function ($each) {
@@ -49,26 +56,50 @@ class EmployeeController extends Controller
                 }
             })
             ->addColumn('action', function ($each) {
-                $show_icon = '<a href="' . route('employee.show', $each->id) . '" class="text-primary"><i class="fas fa-info-circle"></i></a>';
-                $edit_icon = '<a href="' . route('employee.edit', $each->id) . '" class="text-warning"><i class="fas fa-edit"></i></a>';
-                $delete_icon = '<a href="#" class="text-danger delete-btn" data-id="' . $each->id . '"><i class="fas fa-trash-alt"></i></a>';
+                $edit_icon = '';
+                $delete_icon = '';
+                $show_icon = '';
+
+                if (!auth()->user()->can('view_employee')) {
+                    $show_icon = '<a href="' . route('employee.show', $each->id) . '" class="text-primary"><i class="fas fa-info-circle"></i></a>';
+                }
+                if (!auth()->user()->can('edit_employee')) {
+                    $edit_icon = '<a href="' . route('employee.edit', $each->id) . '" class="text-warning"><i class="fas fa-edit"></i></a>';
+                }
+                if (!auth()->user()->can('delete_employee')) {
+                    $delete_icon = '<a href="#" class="text-danger delete-btn" data-id="' . $each->id . '"><i class="fas fa-trash-alt"></i></a>';
+                }
 
                 return '<div class="action-icon">' . $show_icon  . $edit_icon . $delete_icon . '</div>';
             })
             ->addColumn('plus_icon', function ($each) {
                 return null;
             })
-            ->rawColumns(['is_present', 'action', 'profile_img'])
+            ->addColumn('role_name', function ($each) {
+                $output = '';
+                foreach ($each->roles as $role) {
+                    $output .= '<span class="badge badge-pill badge-primary m-1">' . $role->name . '</span>';
+                }
+                return $output;
+            })
+            ->rawColumns(['is_present', 'role_name', 'action', 'profile_img'])
             ->make(true);
     }
     public function create()
     {
+        if (!auth()->user()->can('create_employee')) {
+            abort(403, 'Unauthorized action');
+        }
+        $roles = Role::all();
         $departments = Department::orderBy('title')->get();
-        return view('employee.create', compact('departments'));
+        return view('employee.create', compact('departments', 'roles'));
     }
 
     public function store(StoreEmployee $request)
     {
+        if (!auth()->user()->can('create_employee')) {
+            abort(403, 'Unauthorized action');
+        }
         $profile_img_name = null;
         if ($request->hasFile('profile_img')) {
             $profile_img_file = $request->file('profile_img');
@@ -91,17 +122,31 @@ class EmployeeController extends Controller
         $employee->password = Hash::make($request->password);
         $employee->save();
 
+        // $roleIds = $request->roles; // array{0 => 1},{1 => 2}
+        // // dd($roleIds);
+        // $roles = Role::whereIn('id', $roleIds)->pluck('name')->toArray(); //array{0 => name},{1 => name}
+        // // dd($roles);
+        // $employee->syncRoles($roles);
+        $employee->syncRoles($request->roles);
         return redirect()->route('employee.index')->with("create", "Successfully created employee");
     }
 
     public function edit($id)
     {
+        if (!auth()->user()->can('edit_employee')) {
+            abort(403, 'Unauthorized action');
+        }
         $employee = User::findOrFail($id);
+        $old_roles = $employee->roles->pluck('id')->toArray();
         $departments = Department::orderBy('title')->get();
-        return view('employee.edit', compact('employee', 'departments'));
+        $roles = Role::all();
+        return view('employee.edit', compact('employee', 'departments', 'roles', 'old_roles'));
     }
     public function update($id, UpdateEmployee $request)
     {
+        if (!auth()->user()->can('edit_employee')) {
+            abort(403, 'Unauthorized action');
+        }
         $employee = User::findOrFail($id);
         $profile_img_name = $employee->profile_img;
         if ($request->hasFile('profile_img')) {
@@ -124,17 +169,23 @@ class EmployeeController extends Controller
         $employee->is_present = $request->is_present;
         $employee->password = $request->password ? Hash::make($request->password) : $employee->password;
         $employee->update();
-
+        $employee->syncRoles($request->roles);
         return redirect()->route('employee.index')->with("edit", "Successfully edit employee");
     }
 
     public function show($id)
     {
+        if (!auth()->user()->can('view_employee')) {
+            abort(403, 'Unauthorized action');
+        }
         $employee = User::findOrFail($id);
         return view('employee.show', compact('employee'));
     }
     public function destroy($id)
     {
+        if (!auth()->user()->can('delete_employee')) {
+            abort(403, 'Unauthorized action');
+        }
         $employee = User::findOrFail($id)->delete();
         return 'success';
     }

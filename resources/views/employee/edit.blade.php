@@ -3,7 +3,8 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-            <form action="{{ route('employee.update', $employee->id) }}" method="POST" id="edit-form" autocomplete="off" enctype="multipart/form-data">
+            <form action="{{ route('employee.update', $employee->id) }}" method="POST" id="edit-form" autocomplete="off"
+                enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="md-form">
@@ -33,7 +34,6 @@
                 <div class="form-group">
                     <label for="gender">Gender</label>
                     <select name="gender" class="form-control">
-                        <option value="" disabled selected>Selected</option>
                         <option value="male" {{ $employee->gender == 'male' ? 'selected' : '' }}>Male</option>
                         <option value="female" {{ $employee->gender == 'female' ? 'selected' : '' }}>Female</option>
                     </select>
@@ -49,7 +49,6 @@
                 <div class="form-group">
                     <label for="">Department</label>
                     <select name="department_id" class="form-control">
-                        <option value="" disabled selected>Selected</option>
                         @foreach ($departments as $department)
                             <option value="{{ $department->id }}" @if ($employee->department_id == $department->id) selected @endif>
                                 {{ $department->title }}</option>
@@ -57,8 +56,18 @@
 
                     </select>
                 </div>
+                <div class="form-group">
+                    <label for="">Role Or Designation</label>
+                    <select name="roles[]" class="form-control select-customize" multiple>
+                        @foreach ($roles as $role)
+                            <option value="{{ $role->name }}" @if (in_array($role->id, $old_roles)) selected @endif>
+                                {{ $role->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
                 <div class="md-form">
-                    <label for="">Birthday</label>
+                    <label for="">Join Date</label>
                     <input type="text" name="date_of_join" class="form-control date_of_join"
                         value="{{ $employee->date_of_join }}">
                 </div>
@@ -77,7 +86,6 @@
                 <div class="form-group">
                     <label for="">Is Present</label>
                     <select name="is_present" class="form-control">
-                        <option value="" disabled selected>Selected</option>
                         <option value="1" {{ $employee->is_present == 1 ? 'selected' : '' }}>Yes</option>
                         <option value="0" {{ $employee->is_present == 0 ? 'selected' : '' }}>No</option>
                     </select>

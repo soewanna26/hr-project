@@ -1,10 +1,12 @@
 @extends('layouts.app')
 @section('title', 'Permission')
 @section('content')
-    <div>
-        <a href="{{ route('permission.create') }}" class="btn btn-theme btn-sm"><i class="fas fa-plus-circle"></i> Create
-            Permission</a>
-    </div>
+    @can('create_permission')
+        <div>
+            <a href="{{ route('permission.create') }}" class="btn btn-theme btn-sm"><i class="fas fa-plus-circle"></i> Create
+                Permission</a>
+        </div>
+    @endcan
     <div class="card">
         <div class="card-body">
             <table class="table table-bordered Datatable" style="width: 100%">

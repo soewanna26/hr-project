@@ -20,7 +20,7 @@ use App\Http\Controllers\DepartmentController;
 |
 */
 
-Auth::routes(['register' => false]);
+Auth::routes(['register' => true]);
 // Auth::routes();
 Route::middleware('auth')->group(function()
 {
