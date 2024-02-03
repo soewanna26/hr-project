@@ -85,6 +85,14 @@
                                 <span>Home</span>
                             </a>
                         </li>
+                        @can('view_company_setting')
+                            <li>
+                                <a href="{{ route('company-setting.show',1) }}">
+                                    <i class="fas fa-building"></i>
+                                    <span>Company Setting</span>
+                                </a>
+                            </li>
+                        @endcan
                         @can('view_employee')
                             <li>
                                 <a href="{{ route('employee.index') }}">

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CompanySettingController;
 use App\Http\Controllers\PermissionController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -39,5 +40,7 @@ Route::middleware('auth')->group(function()
 
     Route::resource('permission',PermissionController::class);
     Route::get('permission/datatable/ssd',[PermissionController::class,'ssd']);
+
+    Route::resource('company-setting',CompanySettingController::class)->only(['edit','delete','show']);
 }
 );

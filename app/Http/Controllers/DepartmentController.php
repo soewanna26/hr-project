@@ -29,16 +29,16 @@ class DepartmentController extends Controller
         if (!auth()->user()->can('view_department')) {
             abort(403, 'Unauthorized action');
         }
-        $department = Department::get();
+        $department = Department::query();
         return DataTables::of($department)
             ->addColumn('action', function ($each) {
                 $edit_icon = '';
                 $delete_icon = '';
 
-                if (!auth()->user()->can('edit_department')) {
+                if (auth()->user()->can('edit_department')) {
                     $edit_icon = '<a href="' . route('department.edit', $each->id) . '" class="text-warning"><i class="fas fa-edit"></i></a>';
                 }
-                if (!auth()->user()->can('delete_department')) {
+                if (auth()->user()->can('delete_department')) {
 
                     $delete_icon = '<a href="#" class="text-danger delete-btn" data-id="' . $each->id . '"><i class="fas fa-trash-alt"></i></a>';
                 }

@@ -33,10 +33,10 @@ class PermissionController extends Controller
                 $edit_icon = '';
                 $delete_icon = '';
 
-                if (!auth()->user()->can('edit_permission')) {
+                if (auth()->user()->can('edit_permission')) {
                     $edit_icon = '<a href="' . route('permission.edit', $each->id) . '" class="text-warning"><i class="fas fa-edit"></i></a>';
                 }
-                if (!auth()->user()->can('delete_permission')) {
+                if (auth()->user()->can('delete_permission')) {
 
                     $delete_icon = '<a href="#" class="text-danger delete-btn" data-id="' . $each->id . '"><i class="fas fa-trash-alt"></i></a>';
                 }

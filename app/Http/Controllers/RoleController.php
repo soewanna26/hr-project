@@ -44,10 +44,10 @@ class RoleController extends Controller
                 $edit_icon = '';
                 $delete_icon = '';
 
-                if (!auth()->user()->can('edit_role')) {
+                if (auth()->user()->can('edit_role')) {
                     $edit_icon = '<a href="' . route('role.edit', $each->id) . '" class="text-warning"><i class="fas fa-edit"></i></a>';
                 }
-                if (!auth()->user()->can('delete_role')) {
+                if (auth()->user()->can('delete_role')) {
 
                     $delete_icon = '<a href="#" class="text-danger delete-btn" data-id="' . $each->id . '"><i class="fas fa-trash-alt"></i></a>';
                 }

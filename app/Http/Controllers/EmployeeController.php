@@ -60,15 +60,17 @@ class EmployeeController extends Controller
                 $delete_icon = '';
                 $show_icon = '';
 
-                if (!auth()->user()->can('view_employee')) {
+                if (auth()->user()->can('view_employee')) {
                     $show_icon = '<a href="' . route('employee.show', $each->id) . '" class="text-primary"><i class="fas fa-info-circle"></i></a>';
                 }
-                if (!auth()->user()->can('edit_employee')) {
+                if (auth()->user()->can('edit_employee')) {
                     $edit_icon = '<a href="' . route('employee.edit', $each->id) . '" class="text-warning"><i class="fas fa-edit"></i></a>';
                 }
-                if (!auth()->user()->can('delete_employee')) {
+                if (auth()->user()->can('delete_employee')) {
                     $delete_icon = '<a href="#" class="text-danger delete-btn" data-id="' . $each->id . '"><i class="fas fa-trash-alt"></i></a>';
                 }
+
+
 
                 return '<div class="action-icon">' . $show_icon  . $edit_icon . $delete_icon . '</div>';
             })
