@@ -43,6 +43,8 @@
     {{-- select2 --}}
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
+    <link rel="stylesheet" href="{{asset('css/style.css')}}">
+    @yield('extra_css')
 </head>
 
 <body>
@@ -80,7 +82,7 @@
                             <span>Menu</span>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="{{ route('home') }}">
                                 <i class="fas fa-home"></i>
                                 <span>Home</span>
                             </a>
@@ -241,6 +243,10 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     {{-- select2 --}}
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script src="{{ Vite::asset('resources/js/vendor/webauthn/webauthn.js') }}"></script>
+
+    @vite(['resources/js/app.js'])
     {{-- side bar --}}
     <script>
         $(function($) {

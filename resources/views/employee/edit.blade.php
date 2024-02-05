@@ -44,7 +44,7 @@
                 </div>
                 <div class="md-form">
                     <label for="">Address</label>
-                    <textarea type="address" name="address" class="md-textarea form-control">{{ $employee->address }}</textarea>
+                    <textarea type="text" name="address" class="md-textarea form-control">{{ $employee->address }}</textarea>
                 </div>
                 <div class="form-group">
                     <label for="">Department</label>

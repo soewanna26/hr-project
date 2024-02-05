@@ -427,13 +427,13 @@ body {
 /*-----------------------------chiller-theme-------------------------------------------------*/
 
 .chiller-theme .sidebar-wrapper {
-    background: #2D4737;
+    background: #2d4737;
 }
 
 .chiller-theme .sidebar-wrapper .sidebar-header,
 .chiller-theme .sidebar-wrapper .sidebar-search,
 .chiller-theme .sidebar-wrapper .sidebar-menu {
-    border-top: 1px solid #2D4737;
+    border-top: 1px solid #2d4737;
 }
 
 .chiller-theme .sidebar-wrapper .sidebar-search input.search-menu,
@@ -582,9 +582,30 @@ mark {
     padding: 0px !important;
 }
 
-.table td, .table th {
+.table td,
+.table th {
     vertical-align: middle !important;
 }
-.text-theme{
+.text-theme {
     color: #4cd195 !important;
+}
+.daterangepicker .drp-button .btn {
+    font-size: 12px !important;
+}
+/* ------------biometric register--------- */
+.biometric-register-btn,
+.biometric-data {
+    width: 120px;
+    padding: 15px;
+    border: 1px solid #fff;
+    border-radius: 10px;
+    text-transform: none;
+}
+.biometric-register-btn i.fa-fingerprint,
+.biometric-data i.fa-fingerprint {
+    font-size: 38px;
+}
+
+.biometric-data i.fa-fingerprint{
+    color:#fe4f60;
 }

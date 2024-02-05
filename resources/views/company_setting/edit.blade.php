@@ -1,96 +1,51 @@
 @extends('layouts.app')
-@section('title', 'Edit Employee')
+@section('title', 'Edit Company Setting')
+@section('extra_css')
+    <style>
+        .daterangepicker .drp-calendar.left{
+            margin-left: 8px !important;
+        }
+    </style>
+@endsection
 @section('content')
     <div class="card">
         <div class="card-body">
-            <form action="{{ route('employee.update', $employee->id) }}" method="POST" id="edit-form" autocomplete="off"
+            <form action="{{ route('company-setting.update', $setting->id) }}" method="POST" id="edit-form" autocomplete="off"
                 enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="md-form">
-                    <label for="employee_id">Employee Id</label>
-                    <input type="text" name="employee_id" class="form-control" value="{{ $employee->employee_id }}">
+                    <label for="">Company Name</label>
+                    <input type="text" name="company_name" class="form-control" value="{{ $setting->company_name }}">
                 </div>
                 <div class="md-form">
-                    <label for="name">Name</label>
-                    <input type="text" name="name" class="form-control" value="{{ $employee->name }}">
+                    <label for="">Company Email</label>
+                    <input type="email" name="company_email" class="form-control" value="{{ $setting->company_email }}">
                 </div>
                 <div class="md-form">
-                    <label for="phone">Phone</label>
-                    <input type="number" name="phone" class="form-control" value="{{ $employee->phone }}">
+                    <label for="">Company Phone</label>
+                    <input type="number" name="company_phone" class="form-control" value="{{ $setting->company_phone }}">
                 </div>
                 <div class="md-form">
-                    <label for="email">Email</label>
-                    <input type="email" name="email" class="form-control" value="{{ $employee->email }}">
-                </div>
-                {{-- <div class="md-form">
-                    <label for="">Password</label>
-                    <input type="password" name="password" class="form-control">
-                </div> --}}
-                <div class="md-form">
-                    <label for="nrc_number">Nrc Number</label>
-                    <input type="text" name="nrc_number" class="form-control" value="{{ $employee->nrc_number }}">
-                </div>
-                <div class="form-group">
-                    <label for="gender">Gender</label>
-                    <select name="gender" class="form-control">
-                        <option value="male" {{ $employee->gender == 'male' ? 'selected' : '' }}>Male</option>
-                        <option value="female" {{ $employee->gender == 'female' ? 'selected' : '' }}>Female</option>
-                    </select>
+                    <label for="">Company Address</label>
+                    <textarea type="text" name="company_address" class="md-textarea form-control pt-3">{{ $setting->company_address }}</textarea>
                 </div>
                 <div class="md-form">
-                    <label for="birthday">Birthday</label>
-                    <input type="text" name="birthday" class="form-control birthday" value="{{ $employee->birthday }}">
+                    <label for="">Office Start Time</label>
+                    <input type="text" name="office_start_time" class="form-control timepicker" value="{{ $setting->office_start_time }}">
                 </div>
                 <div class="md-form">
-                    <label for="">Address</label>
-                    <textarea type="address" name="address" class="md-textarea form-control">{{ $employee->address }}</textarea>
-                </div>
-                <div class="form-group">
-                    <label for="">Department</label>
-                    <select name="department_id" class="form-control">
-                        @foreach ($departments as $department)
-                            <option value="{{ $department->id }}" @if ($employee->department_id == $department->id) selected @endif>
-                                {{ $department->title }}</option>
-                        @endforeach
-
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="">Role Or Designation</label>
-                    <select name="roles[]" class="form-control select-customize" multiple>
-                        @foreach ($roles as $role)
-                            <option value="{{ $role->name }}" @if (in_array($role->id, $old_roles)) selected @endif>
-                                {{ $role->name }}
-                            </option>
-                        @endforeach
-                    </select>
+                    <label for="">Office End Time</label>
+                    <input type="text" name="office_end_time" class="form-control timepicker" value="{{ $setting->office_end_time }}">
                 </div>
                 <div class="md-form">
-                    <label for="">Join Date</label>
-                    <input type="text" name="date_of_join" class="form-control date_of_join"
-                        value="{{ $employee->date_of_join }}">
+                    <label for="">Break Start Time</label>
+                    <input type="text" name="break_start_time" class="form-control timepicker" value="{{ $setting->break_start_time }}">
                 </div>
-
-                <div class="form-group">
-                    <label for="profile_img">Profile Image</label>
-                    <input type="file" name="profile_img" class="form-control p-1" id="profile_img">
-
-                    <div class="preview_img my-2">
-                        @if ($employee->profile_img)
-                            <img src="{{ $employee->profile_img_path() }}" alt="">
-                        @endif
-                    </div>
+                <div class="md-form">
+                    <label for="">Break End Time</label>
+                    <input type="text" name="break_end_time" class="form-control timepicker" value="{{ $setting->break_end_time }}">
                 </div>
-
-                <div class="form-group">
-                    <label for="">Is Present</label>
-                    <select name="is_present" class="form-control">
-                        <option value="1" {{ $employee->is_present == 1 ? 'selected' : '' }}>Yes</option>
-                        <option value="0" {{ $employee->is_present == 0 ? 'selected' : '' }}>No</option>
-                    </select>
-                </div>
-
                 <div class="d-flex justify-content-center mt-5 mb-3">
                     <div class="col-md-6">
                         <button type="submit" class="btn btn-theme btn-sm btn-block">Confirm</button>
@@ -101,33 +56,21 @@
     </div>
 @endsection
 @section('script')
-    {!! JsValidator::formRequest('App\Http\Requests\UpdateEmployee', '#edit-form') !!}
+    {!! JsValidator::formRequest('App\Http\Requests\UpdateCompanySetting', '#edit-form') !!}
     <script>
         $(document).ready(function() {
-            $('.birthday').daterangepicker({
+            $('.timepicker').daterangepicker({
                 singleDatePicker: true,
-                "showDropdowns": true,
-                "autoApply": true,
-                "maxDate": moment(),
-                "locale": {
-                    "format": "YYYY/MM/DD",
-                }
-            });
-            $('.date_of_join').daterangepicker({
-                singleDatePicker: true,
-                "showDropdowns": true,
+                'timePicker': true,
+                'timePicker24Hour': true,
+                'timePickerSeconds': true,
                 "autoApply": true,
                 "locale": {
-                    "format": "YYYY/MM/DD",
+                    "format": "HH:mm:ss",
                 }
+            }).on('show.daterangepicker',function(ev, picker){
+                $('.calendar-table').hide();
             });
-            $('#profile_img').on('change', function() {
-                var file_length = document.getElementById('profile_img').files.length;
-                $('.preview_img').html('');
-                for (var i = 0; i < file_length; i++) {
-                    $('.preview_img').append(`<img src="${URL.createObjectURL(event.target.files[i])}"/>`)
-                }
-            })
         });
     </script>
 @endsection

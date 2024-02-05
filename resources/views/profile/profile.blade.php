@@ -54,6 +54,23 @@
     </div>
     <div class="card mb-3">
         <div class="card-body">
+            <h5>Biomethric Authencation</h5>
+            @foreach ($biometrics as $biometric)
+            <a href="#" class="btn biometric-data">
+                <i class="fas fa-fingerprint"></i>
+                <p class="mb-0">Biometric {{$loop->iteration}}</p>
+            </a>
+            @endforeach
+
+
+            <a href="#" class="btn biometric-register-btn">
+                <i class="fas fa-fingerprint"></i>
+                <p class="mb-0"><i class="fas fa-plus-circle"></i></p>
+            </a>
+        </div>
+    </div>
+    <div class="card mb-3">
+        <div class="card-body">
             <a href="#" class="logout-btn btn btn-theme btn-block"><i class="fas fa-sign-out-alt"></i>Logout</a>
         </div>
     </div>
@@ -61,6 +78,28 @@
 @section('script')
     <script>
         $(document).ready(function() {
+            const register = event => {
+                event.preventDefault()
+
+                new WebAuthn().register()
+                    .then(function(response) {
+                        Swal.fire({
+                            title: 'Successfully created',
+                            text: "The Biometrics account was successfully created",
+                            icon: 'success',
+                            confirmButtonText: 'Continue'
+                        })
+                    })
+                    .catch(function(response) {
+                        console.error(response);
+                    })
+            }
+
+            // document.getElementById('biometric-register-form').addEventListener('submit', register)
+            $('.biometric-register-btn').on('click', function(event) {
+                register(event);
+            });
+
             $('.logout-btn').click(function(e) {
                 e.preventDefault();
                 swal({
