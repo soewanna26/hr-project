@@ -16,8 +16,6 @@
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     {{-- <!-- Google Fonts -->
@@ -43,7 +41,7 @@
     {{-- select2 --}}
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
-    <link rel="stylesheet" href="{{asset('css/style.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     @yield('extra_css')
 </head>
 
@@ -89,7 +87,7 @@
                         </li>
                         @can('view_company_setting')
                             <li>
-                                <a href="{{ route('company-setting.show',1) }}">
+                                <a href="{{ route('company-setting.show', 1) }}">
                                     <i class="fas fa-building"></i>
                                     <span>Company Setting</span>
                                 </a>
@@ -347,6 +345,13 @@
             })
             $('.select-customize').select2();
         });
+        // const Toast = Swal.mixin({
+        //     toast: true,
+        //     position: "top-end",
+        //     showConfirmButton: false,
+        //     timer: 3000,
+        //     timerProgressBar: true,
+        // });
     </script>
     @yield('script')
 </body>

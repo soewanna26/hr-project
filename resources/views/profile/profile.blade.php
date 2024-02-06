@@ -55,14 +55,7 @@
     <div class="card mb-3">
         <div class="card-body">
             <h5>Biomethric Authencation</h5>
-            @foreach ($biometrics as $biometric)
-            <a href="#" class="btn biometric-data">
-                <i class="fas fa-fingerprint"></i>
-                <p class="mb-0">Biometric {{$loop->iteration}}</p>
-            </a>
-            @endforeach
-
-
+            <span class="biometric-data-component"></span>
             <a href="#" class="btn biometric-register-btn">
                 <i class="fas fa-fingerprint"></i>
                 <p class="mb-0"><i class="fas fa-plus-circle"></i></p>
@@ -78,6 +71,17 @@
 @section('script')
     <script>
         $(document).ready(function() {
+            biometricsData();
+
+            function biometricsData() {
+                $.ajax({
+                    url: '/profile/biometric-data',
+                    type: 'GET',
+                    success: function(res) {
+                        $('.biometric-data-component').html(res);
+                    }
+                });
+            }
             const register = event => {
                 event.preventDefault()
 
@@ -88,14 +92,13 @@
                             text: "The Biometrics account was successfully created",
                             icon: 'success',
                             confirmButtonText: 'Continue'
-                        })
+                        });
+                        biometricsData();
                     })
                     .catch(function(response) {
                         console.error(response);
                     })
             }
-
-            // document.getElementById('biometric-register-form').addEventListener('submit', register)
             $('.biometric-register-btn').on('click', function(event) {
                 register(event);
             });
@@ -114,6 +117,25 @@
                                 type: 'POST',
                             }).done(function(res) {
                                 window.location.reload();
+                            });
+                        }
+                    });
+            });
+            $(document).on('click', '.biometric-delete-btn', function(event) {
+                event.preventDefault();
+                var id = $(this).data('id');
+                swal({
+                        title: "Are you sure want to delete?",
+                        buttons: true,
+                        dangerMode: true,
+                    })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            $.ajax({
+                                url: `profile/biometric-data/${id}`,
+                                type: 'DELETE',
+                            }).done(function(res) {
+                                biometricsData();
                             });
                         }
                     });

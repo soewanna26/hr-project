@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\CheckinCheckoutController;
 use App\Http\Controllers\CompanySettingController;
 use App\Http\Controllers\PermissionController;
 use Illuminate\Support\Facades\Auth;
@@ -24,6 +26,8 @@ use Laragear\WebAuthn\WebAuthn;
 
 Auth::routes(['register' => true]);
 // Auth::routes();
+Route::get('checkin-checkout',[CheckinCheckoutController::class, 'checkInCheckOut']);
+Route::get('/login-option',[LoginController::class,'loginOption'])->name('login-option');
 WebAuthn::routes();
 Route::middleware('auth')->group(function()
 {
@@ -33,6 +37,8 @@ Route::middleware('auth')->group(function()
     Route::get('employee/datatable/ssd',[EmployeeController::class,'ssd']);
 
     Route::get('profile',[ProfileController::class,'profile'])->name('profile.profile');
+    Route::get('profile/biometric-data',[ProfileController::class,'biometricsData']);
+    Route::delete('profile/biometric-data/{id}',[ProfileController::class,'biometricsDestroy']);
 
     Route::resource('department',DepartmentController::class);
     Route::get('department/datatable/ssd',[DepartmentController::class,'ssd']);

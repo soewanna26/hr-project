@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
@@ -24,7 +24,10 @@
         href='https://mdbcdn.b-cdn.net/wp-content/themes/mdbootstrap4/css/compiled-4.19.2.min.css?ver=4.19.2'
         type='text/css' media='all' />
 
-    <link rel="stylesheet" href="{{asset('css/style.css')}}">
+    {{-- pincode --}}
+    <link rel="stylesheet" href="{{ asset('css/pin-code.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     {{-- @vite(['resources/sass/app.scss', 'resources/js/app.js']) --}}
     @yield('extra_css')
 </head>
@@ -33,14 +36,21 @@
     <div id="app">
         @yield('content')
     </div>
+
     <!-- JQuery -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Bootstrap tooltips -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
     <!-- Bootstrap core JavaScript -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js">
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <!-- MDB core JavaScript -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
+
+    {{-- pincode --}}
+    <script src="{{ asset('js/pin-code.js') }}"></script>
+
+    <!-- Your custom script -->
+    @yield('script')
+</body>
 
 </html>

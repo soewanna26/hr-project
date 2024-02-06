@@ -121,6 +121,7 @@ class EmployeeController extends Controller
         $employee->date_of_join = $request->date_of_join;
         $employee->profile_img = $profile_img_name;
         $employee->is_present = $request->is_present;
+        $employee->pin_code = Hash::make($request->pin_code);
         $employee->password = Hash::make($request->password);
         $employee->save();
 
@@ -169,6 +170,7 @@ class EmployeeController extends Controller
         $employee->date_of_join = $request->date_of_join;
         $employee->profile_img = $profile_img_name;
         $employee->is_present = $request->is_present;
+        $employee->pin_code = $request->pin_code ? Hash::make($request->pin_code) : $employee->pin_code;
         $employee->password = $request->password ? Hash::make($request->password) : $employee->password;
         $employee->update();
         $employee->syncRoles($request->roles);

@@ -34,6 +34,8 @@ class UpdateEmployee extends FormRequest
             'address' => 'required',
             'department_id' => 'required',
             'date_of_join' => 'required',
+            'password' => 'nullable',
+            'pin_code' => 'nullable|min:6|max:6',
             'is_present' => 'required',
         ];
     }

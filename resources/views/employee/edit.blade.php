@@ -23,10 +23,14 @@
                     <label for="email">Email</label>
                     <input type="email" name="email" class="form-control" value="{{ $employee->email }}">
                 </div>
-                {{-- <div class="md-form">
+                <div class="md-form">
                     <label for="">Password</label>
                     <input type="password" name="password" class="form-control">
-                </div> --}}
+                </div>
+                <div class="md-form">
+                    <label for="">Pin Code</label>
+                    <input type="number" name="pin_code" class="form-control">
+                </div>
                 <div class="md-form">
                     <label for="nrc_number">Nrc Number</label>
                     <input type="text" name="nrc_number" class="form-control" value="{{ $employee->nrc_number }}">
@@ -39,12 +43,12 @@
                     </select>
                 </div>
                 <div class="md-form">
-                    <label for="birthday">Birthday</label>
+                    <label for="">Birthday</label>
                     <input type="text" name="birthday" class="form-control birthday" value="{{ $employee->birthday }}">
                 </div>
                 <div class="md-form">
                     <label for="">Address</label>
-                    <textarea type="text" name="address" class="md-textarea form-control">{{ $employee->address }}</textarea>
+                    <textarea type="text" name="address" class="md-textarea form-control pt-3">{{ $employee->address }}</textarea>
                 </div>
                 <div class="form-group">
                     <label for="">Department</label>

@@ -27,6 +27,10 @@
                     <input type="password" name="password" class="form-control">
                 </div>
                 <div class="md-form">
+                    <label for="">Pin Code</label>
+                    <input type="number" name="pin_code" class="form-control">
+                </div>
+                <div class="md-form">
                     <label for="nrc_number">Nrc Number</label>
                     <input type="text" name="nrc_number" class="form-control">
                 </div>

@@ -57,4 +57,11 @@ class LoginController extends Controller
 
         return 'success';
     }
+    public function loginOption(Request $request)
+    {
+        $request->validate([
+            'phone' => 'required',
+        ]);
+        return view('auth.login_option');
+    }
 }
