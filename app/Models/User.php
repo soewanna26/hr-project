@@ -13,7 +13,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements WebAuthnAuthenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable,HasRoles,WebAuthnAuthentication;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles, WebAuthnAuthentication;
 
     /**
      * The attributes that are mass assignable.
@@ -48,11 +48,11 @@ class User extends Authenticatable implements WebAuthnAuthenticatable
 
     public function department()
     {
-        return $this->belongsTo(Department::class,'department_id','id');
+        return $this->belongsTo(Department::class, 'department_id', 'id'); //deperment_id(users table) is foregin and id(departments table) is primary key
     }
     public function profile_img_path()
     {
-        if($this->profile_img){
+        if ($this->profile_img) {
             return asset('storage/employee/' . $this->profile_img);
         }
         return null;
