@@ -132,7 +132,7 @@
                             <li>
                                 <a href="{{ route('attendance.index') }}">
                                     <i class="fas fa-calendar-check"></i>
-                                    <span>Attendance</span>
+                                    <span>Attendance {Employee}</span>
                                 </a>
                             </li>
                         @endcan
@@ -197,13 +197,13 @@
                             <i class="fas fa-home"></i>
                             <p class="mb-0">Home</p>
                         </a>
-                        <a href="">
-                            <i class="fas fa-home"></i>
-                            <p class="mb-0">Home</p>
+                        <a href="{{route('attendance-scan')}}">
+                            <i class="fas fa-user-clock"></i>
+                            <p class="mb-0">Attendence</p>
                         </a>
                         <a href="">
-                            <i class="fas fa-home"></i>
-                            <p class="mb-0">Home</p>
+                            <i class="fas fa-briefcase"></i>
+                            <p class="mb-0">Project</p>
                         </a>
                         <a href="{{ route('profile.profile') }}">
                             <i class="fas fa-user"></i>

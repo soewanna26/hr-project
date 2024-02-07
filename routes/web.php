@@ -1,18 +1,19 @@
 <?php
 
-use App\Http\Controllers\AttendanceController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\CheckinCheckoutController;
-use App\Http\Controllers\CompanySettingController;
-use App\Http\Controllers\PermissionController;
+use Laragear\WebAuthn\WebAuthn;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DepartmentController;
-use Laragear\WebAuthn\WebAuthn;
+use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\AttendanceScanController;
+use App\Http\Controllers\CompanySettingController;
+use App\Http\Controllers\CheckinCheckoutController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,7 +28,7 @@ use Laragear\WebAuthn\WebAuthn;
 
 Auth::routes(['register' => true]);
 // Auth::routes();
-Route::get('checkin-checkout',[CheckinCheckoutController::class, 'checkInCheckOut']);
+Route::get('checkin-checkout',[CheckinCheckoutController::class, 'checkInCheckOut'])->name('checkin-checkout');
 Route::post('checkin-checkout/store',[CheckinCheckoutController::class, 'checkInCheckOutStore']);
 
 Route::get('/login-option',[LoginController::class,'loginOption'])->name('login-option');
@@ -57,5 +58,7 @@ Route::middleware('auth')->group(function()
 
     Route::resource('attendance',AttendanceController::class);
     Route::get('attendance/datatable/ssd',[AttendanceController::class,'ssd']);
+
+    Route::get('/attendance-scan',[AttendanceScanController::class,'scan'])->name('attendance-scan');
 }
 );

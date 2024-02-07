@@ -67,7 +67,7 @@
                     },
                 ],
                 order: [
-                    [6, 'desc']
+                    [3, 'desc']
                 ],
             });
             $(document).on("click", ".delete-btn", function(e) {
