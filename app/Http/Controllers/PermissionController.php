@@ -43,6 +43,9 @@ class PermissionController extends Controller
 
                 return '<div class="action-icon">'  . $edit_icon . $delete_icon . '</div>';
             })
+            ->editColumn('created_at', function ($each) {
+                return $each->created_at->toDateTimeString();
+            })
             ->editColumn('updated_at', function ($each) {
                 return Carbon::parse($each->updated_at)->format('Y-m-d H:i:s');
             })

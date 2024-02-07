@@ -96,8 +96,29 @@
     <script src="{{ asset('js/pin.js') }}"></script>
 
     @vite(['resources/js/app.js'])
+    <script>
+        let Toast;
+        $(function($) {
+            let token = document.head.querySelector('meta[name="csrf-token"]');
+            if (token) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': token.content
+                    }
+                });
+            } else {
+                console.error('CSRF Token not Found')
+            }
+            Toast = Swal.mixin({
+                toast: true,
+                position: 'top',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+            });
+        });
+    </script>
 
-    <!-- Your custom script -->
     @yield('script')
 </body>
 

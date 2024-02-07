@@ -29,7 +29,7 @@
                 </div>
                 <div class="md-form">
                     <label for="">Pin Code</label>
-                    <input type="number" name="pin_code" class="form-control">
+                    <input type="number" name="pin_code" class="form-control" value="{{$employee->pin_code}}">
                 </div>
                 <div class="md-form">
                     <label for="nrc_number">Nrc Number</label>

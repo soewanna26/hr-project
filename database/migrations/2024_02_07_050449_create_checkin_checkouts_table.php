@@ -11,8 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('pin_code');
+        Schema::create('checkin_checkouts', function (Blueprint $table) {
+            $table->id();
+            $table->bigInteger('user_id');
+            $table->timestamp('checkin_time')->nullable();
+            $table->timestamp('checkout_time')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -21,8 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('pin_code');
-        });
+        Schema::dropIfExists('checkin_checkouts');
     }
 };

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CheckinCheckoutController;
 use App\Http\Controllers\CompanySettingController;
@@ -27,8 +28,11 @@ use Laragear\WebAuthn\WebAuthn;
 Auth::routes(['register' => true]);
 // Auth::routes();
 Route::get('checkin-checkout',[CheckinCheckoutController::class, 'checkInCheckOut']);
+Route::post('checkin-checkout/store',[CheckinCheckoutController::class, 'checkInCheckOutStore']);
+
 Route::get('/login-option',[LoginController::class,'loginOption'])->name('login-option');
 WebAuthn::routes();
+
 Route::middleware('auth')->group(function()
 {
     Route::get('/',[PageController::class,'home'])->name('home');
@@ -50,5 +54,8 @@ Route::middleware('auth')->group(function()
     Route::get('permission/datatable/ssd',[PermissionController::class,'ssd']);
 
     Route::resource('company-setting',CompanySettingController::class)->only(['edit','show','update']);
+
+    Route::resource('attendance',AttendanceController::class);
+    Route::get('attendance/datatable/ssd',[AttendanceController::class,'ssd']);
 }
 );

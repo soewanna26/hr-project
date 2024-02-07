@@ -35,7 +35,7 @@ class UpdateEmployee extends FormRequest
             'department_id' => 'required',
             'date_of_join' => 'required',
             'password' => 'nullable',
-            'pin_code' => 'nullable|min:6|max:6',
+            'pin_code' => 'required|min:6|max:6|unique:users,pin_code,'.$id,
             'is_present' => 'required',
         ];
     }

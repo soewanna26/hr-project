@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('pin_code');
+        Schema::table('checkin_checkouts', function (Blueprint $table) {
+            $table->date('date')->nullable()->after('user_id');
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('pin_code');
+        Schema::table('checkin_checkouts', function (Blueprint $table) {
+            $table->dropColumn('date');
         });
     }
 };

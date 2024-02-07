@@ -41,6 +41,9 @@
     {{-- select2 --}}
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@ttskch/select2-bootstrap4-theme@x.x.x/dist/select2-bootstrap4.min.css">
+
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     @yield('extra_css')
 </head>
@@ -122,6 +125,14 @@
                                 <a href="{{ route('permission.index') }}">
                                     <i class="fas fa-shield-alt"></i>
                                     <span>Permission</span>
+                                </a>
+                            </li>
+                        @endcan
+                        @can('view_attendance')
+                            <li>
+                                <a href="{{ route('attendance.index') }}">
+                                    <i class="fas fa-calendar-check"></i>
+                                    <span>Attendance</span>
                                 </a>
                             </li>
                         @endcan
@@ -343,7 +354,11 @@
                 window.history.go(-1);
                 return false;
             })
-            $('.select-customize').select2();
+            $('.select-customize').select2({
+                placeholder: '--Please Choose--',
+                allowClear: true,
+                theme: 'bootstrap4',
+            });
         });
         // const Toast = Swal.mixin({
         //     toast: true,

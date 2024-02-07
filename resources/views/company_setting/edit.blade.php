@@ -3,7 +3,7 @@
 @section('extra_css')
     <style>
         .daterangepicker .drp-calendar.left{
-            margin-left: 8px !important;
+            margin-right: 8px !important;
         }
     </style>
 @endsection
