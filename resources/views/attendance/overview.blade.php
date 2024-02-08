@@ -73,7 +73,6 @@
                     url: `/attendance-overview-table?employee_name=${employee_name}&month=${month}&year=${year}`,
                     type: "GET",
                     success: function(res) {
-                        console.log(res);
                         $('.attendance_overview_table').html(res);
                     }
                 });

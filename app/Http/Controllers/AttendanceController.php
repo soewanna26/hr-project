@@ -157,11 +157,7 @@ class AttendanceController extends Controller
         if (!auth()->user()->can('view_attendance_overview')) {
             abort(403, 'Unauthorized action');
         }
-        $periods = new CarbonPeriod('2024-02-1', '2024-02-29');
-        $employees = User::orderBy('employee_id')->get();
-        $attendances = CheckinCheckout::whereMonth('date', '02')->whereYear('date', '2024')->get();
-        $company_setting = CompanySetting::findOrFail(1);
-        return view('attendance.overview', compact('periods', 'employees', 'attendances', 'company_setting'));
+        return view('attendance.overview');
     }
 
     public function overviewTable(Request $request)
