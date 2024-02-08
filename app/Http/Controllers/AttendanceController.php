@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreAttendance;
 use App\Http\Requests\UpdateAttendance;
 use App\Models\CheckinCheckout;
+use App\Models\CompanySetting;
 use App\Models\User;
+use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
@@ -28,6 +31,11 @@ class AttendanceController extends Controller
         }
         $attendances = CheckinCheckout::with('employee');
         return DataTables::of($attendances)
+            ->filterColumn('employee_name', function ($query, $keyword) {
+                $query->whereHas('employee', function ($q1) use ($keyword) {
+                    $q1->where('name', 'LIKE', '%' . $keyword . '%');
+                });
+            })
             ->addColumn('employee_name', function ($each) {
                 return $each->employee ? $each->employee->name : "-";
             })
@@ -142,5 +150,34 @@ class AttendanceController extends Controller
         }
         $attendance = CheckinCheckout::findOrFail($id)->delete();
         return 'success';
+    }
+
+    public function overview(Request $request)
+    {
+        if (!auth()->user()->can('view_attendance_overview')) {
+            abort(403, 'Unauthorized action');
+        }
+        $periods = new CarbonPeriod('2024-02-1', '2024-02-29');
+        $employees = User::orderBy('employee_id')->get();
+        $attendances = CheckinCheckout::whereMonth('date', '02')->whereYear('date', '2024')->get();
+        $company_setting = CompanySetting::findOrFail(1);
+        return view('attendance.overview', compact('periods', 'employees', 'attendances', 'company_setting'));
+    }
+
+    public function overviewTable(Request $request)
+    {
+        if (!auth()->user()->can('view_attendance_overview')) {
+            abort(403, 'Unauthorized action');
+        }
+        $month = $request->month;
+        $year  = $request->year;
+        $startOfMonth = $year . '-' . $month  . '-01';
+        $endOfMonth = Carbon::parse($startOfMonth)->endOfMonth()->format('Y-m-d');
+
+        $periods = new CarbonPeriod($startOfMonth, $endOfMonth);
+        $employees = User::orderBy('employee_id')->where('name','LIKE','%'.$request->employee_name.'%')->get();
+        $attendances = CheckinCheckout::whereMonth('date', $month)->whereYear('date', $year)->get();
+        $company_setting = CompanySetting::findOrFail(1);
+        return view('components.attendance_overview_table', compact('periods', 'employees', 'attendances', 'company_setting'))->render();
     }
 }

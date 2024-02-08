@@ -8,7 +8,7 @@
                 <div class="card-body">
                     <div class="my-5 text-center">
                         <h5>QR COde</h5>
-                        <img src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(200)->generate('Make me into an QrCode!')) !!} ">
+                        <img src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(200)->generate($hash_value)) !!} ">
                         <p class="text-muted">Please scan QR to Check In Or Checkout</p>
                     </div>
                     <hr>

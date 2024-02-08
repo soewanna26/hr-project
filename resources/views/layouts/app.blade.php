@@ -132,7 +132,15 @@
                             <li>
                                 <a href="{{ route('attendance.index') }}">
                                     <i class="fas fa-calendar-check"></i>
-                                    <span>Attendance {Employee}</span>
+                                    <span>Attendance(Emp)</span>
+                                </a>
+                            </li>
+                        @endcan
+                        @can('view_attendance_overview')
+                            <li>
+                                <a href="{{ route('attendance.overview') }}">
+                                    <i class="fas fa-calendar-check"></i>
+                                    <span>Attendance(view)</span>
                                 </a>
                             </li>
                         @endcan
@@ -164,7 +172,7 @@
         <!-- sidebar-wrapper  -->
         <div class="app-bar">
             <div class="d-flex justify-content-center">
-                <div class="col-md-8">
+                <div class="col-md-10">
                     <div class="d-flex justify-content-between">
                         @if (request()->is('/'))
                             <a id="show-sidebar" href="#">
@@ -184,20 +192,20 @@
         </div>
         <div class="py-4 content">
             <div class="d-flex justify-content-center">
-                <div class="col-md-8">
+                <div class="col-md-10">
                     @yield('content')
                 </div>
             </div>
         </div>
         <div class="bottom-bar">
             <div class="d-flex justify-content-center">
-                <div class="col-md-8">
+                <div class="col-md-10">
                     <div class="d-flex justify-content-between">
                         <a href="{{ route('home') }}">
                             <i class="fas fa-home"></i>
                             <p class="mb-0">Home</p>
                         </a>
-                        <a href="{{route('attendance-scan')}}">
+                        <a href="{{ route('attendance-scan') }}">
                             <i class="fas fa-user-clock"></i>
                             <p class="mb-0">Attendence</p>
                         </a>
@@ -258,6 +266,7 @@
     @vite(['resources/js/app.js'])
     {{-- side bar --}}
     <script>
+        let Toast;
         $(function($) {
             let token = document.head.querySelector('meta[name="csrf-token"]');
             if (token) {
@@ -360,13 +369,13 @@
                 theme: 'bootstrap4',
             });
         });
-        // const Toast = Swal.mixin({
-        //     toast: true,
-        //     position: "top-end",
-        //     showConfirmButton: false,
-        //     timer: 3000,
-        //     timerProgressBar: true,
-        // });
+        Toast = Swal.mixin({
+            toast: true,
+            position: "top",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+        });
     </script>
     @yield('script')
 </body>

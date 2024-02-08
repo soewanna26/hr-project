@@ -3,14 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\CheckinCheckout;
+use App\Models\CompanySetting;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class CheckinCheckoutController extends Controller
 {
     public function checkInCheckOut()
     {
-        return view('checkin_checkout');
+        $company_setting = CompanySetting::findOrFail(1);
+        $hash_value = Hash::make(date("Y-m-d"));
+        return view('checkin_checkout',compact('hash_value'));
     }
     public function checkInCheckOutStore(Request $request)
     {
