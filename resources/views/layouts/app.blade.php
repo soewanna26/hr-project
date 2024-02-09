@@ -104,6 +104,14 @@
                                 </a>
                             </li>
                         @endcan
+                        @can('view_salary')
+                            <li>
+                                <a href="{{ route('salary.index') }}">
+                                    <i class="fas fa-money-bill"></i>
+                                    <span>Salary</span>
+                                </a>
+                            </li>
+                        @endcan
                         @can('view_department')
                             <li>
                                 <a href="{{ route('department.index') }}">
@@ -141,6 +149,14 @@
                                 <a href="{{ route('attendance.overview') }}">
                                     <i class="fas fa-calendar-check"></i>
                                     <span>Attendance(view)</span>
+                                </a>
+                            </li>
+                        @endcan
+                        @can('view_payroll')
+                            <li>
+                                <a href="{{ route('payroll') }}">
+                                    <i class="fas fa-money-check"></i>
+                                    <span>Payroll</span>
                                 </a>
                             </li>
                         @endcan

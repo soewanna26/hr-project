@@ -1,9 +1,11 @@
 <div class="table-responsive">
-    <table class="table table-bordered">
+    <table class="table table-bordered table-striped">
         <thead>
             <th>Employee</th>
             @foreach ($periods as $period)
-                <th>{{ $period->format('d') }}</th>
+                <th class="text-center @if ($period->format('D') == 'Sat' || $period->format('D') == 'Sun') alert-danger @endif">{{ $period->format('d') }}
+                    <br>
+                    {{ $period->format('D') }}</th>
             @endforeach
         </thead>
         <tbody>
@@ -27,7 +29,7 @@
                                     $checkin_icon = '<i class="fas fa-check-circle text-success"></i>';
                                 } elseif ($attendance->checkin_time > $office_start_time && $attendance->checkin_time < $break_start_time) {
                                     $checkin_icon = '<i class="fas fa-check-circle text-warning"></i>';
-                                } else {
+                                } else{
                                     $checkin_icon = '<i class="fas fa-times-circle text-danger"></i>';
                                 }
 
@@ -40,7 +42,7 @@
                                 }
                             }
                         @endphp
-                        <td>
+                        <td class="text-center @if ($period->format('D') == 'Sat' || $period->format('D') == 'Sun') alert-danger @endif">
                             <div>
                                 {!! $checkin_icon !!}
                             </div>

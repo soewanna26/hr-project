@@ -15,6 +15,9 @@ use App\Http\Controllers\AttendanceScanController;
 use App\Http\Controllers\CompanySettingController;
 use App\Http\Controllers\CheckinCheckoutController;
 use App\Http\Controllers\MyAttendanceController;
+use App\Http\Controllers\MyPayrollController;
+use App\Http\Controllers\PayrollController;
+use App\Http\Controllers\SalaryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,5 +70,14 @@ Route::middleware('auth')->group(function()
 
     Route::get('my-attendance/datatable/ssd',[MyAttendanceController::class,'ssd']);
     Route::get('my-attendance-overview-table',[MyAttendanceController::class,'overviewTable']);
+
+    Route::resource('salary',SalaryController::class);
+    Route::get('salary/datatable/ssd',[SalaryController::class,'ssd']);
+
+    Route::get('payroll',[PayrollController::class,'payroll'])->name('payroll');
+    Route::get('payroll-table',[PayrollController::class,'payrollTable']);
+
+    Route::get('mypayroll',[MyPayrollController::class,'ssd']);
+    Route::get('mypayroll-table',[MYPayrollController::class,'mypayrollTable']);
 }
 );

@@ -14,10 +14,16 @@ class CheckinCheckoutController extends Controller
     {
         $company_setting = CompanySetting::findOrFail(1);
         $hash_value = Hash::make(date("Y-m-d"));
-        return view('checkin_checkout',compact('hash_value'));
+        return view('checkin_checkout', compact('hash_value'));
     }
     public function checkInCheckOutStore(Request $request)
     {
+        if (now()->format('D') == 'Sat' || now()->format('') == 'Sun') {
+            return [
+                'status' => 'fail',
+                'message' => 'Today is Holiday',
+            ];
+        }
         $user = User::where('pin_code', $request->pin_code)->first();
         if (!$user) {
             return [
