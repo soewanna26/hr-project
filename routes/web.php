@@ -17,6 +17,7 @@ use App\Http\Controllers\CheckinCheckoutController;
 use App\Http\Controllers\MyAttendanceController;
 use App\Http\Controllers\MyPayrollController;
 use App\Http\Controllers\PayrollController;
+use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SalaryController;
 
 /*
@@ -79,5 +80,8 @@ Route::middleware('auth')->group(function()
 
     Route::get('mypayroll',[MyPayrollController::class,'ssd']);
     Route::get('mypayroll-table',[MYPayrollController::class,'mypayrollTable']);
+
+    Route::resource('project',ProjectController::class);
+    Route::get('project/datatable/ssd',[ProjectController::class,'ssd']);
 }
 );

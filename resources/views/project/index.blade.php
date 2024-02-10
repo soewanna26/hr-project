@@ -1,10 +1,10 @@
 @extends('layouts.app')
-@section('title', 'Attendance')
+@section('title', 'Project')
 @section('content')
-    @can('create_attendance')
+    @can('create_project')
         <div>
-            <a href="{{ route('attendance.create') }}" class="btn btn-theme btn-sm"><i class="fas fa-plus-circle"></i> Create
-                Attendance</a>
+            <a href="{{ route('project.create') }}" class="btn btn-theme btn-sm"><i class="fas fa-plus-circle"></i> Create
+                Project</a>
         </div>
     @endcan
 
@@ -13,10 +13,14 @@
             <table class="table table-bordered Datatable" style="width: 100%">
                 <thead>
                     <th class="text-center no-sort no-search"></th>
-                    <th class="text-center">Employee</th>
-                    <th class="text-center">Date</th>
-                    <th class="text-center">Checkin Time</th>
-                    <th class="text-center">Checkout Time</th>
+                    <th class="text-center">Title</th>
+                    <th class="text-center">Description</th>
+                    <th class="text-center no-sort">Leader</th>
+                    <th class="text-center no-sort">Member</th>
+                    <th class="text-center">Start Date</th>
+                    <th class="text-center">Deadline</th>
+                    <th class="text-center">Priority</th>
+                    <th class="text-center">Status</th>
                     <th class="text-center no-sort">Action</th>
                     <th class="text-center hidden no-search">Updated At</th>
                 </thead>
@@ -29,30 +33,50 @@
         var table;
         $(document).ready(function() {
             table = $('.Datatable').DataTable({
-                ajax: '/attendance/datatable/ssd',
+                ajax: '/project/datatable/ssd',
                 columns: [{
                         data: 'plus_icon',
                         title: 'plus_icon',
                         class: 'text-center',
                     },
                     {
-                        data: 'employee_name',
-                        name: 'employee_name',
+                        data: 'title',
+                        name: 'title',
                         class: 'text-center',
                     },
                     {
-                        data: 'date',
-                        name: 'date',
+                        data: 'description',
+                        name: 'description',
                         class: 'text-center',
                     },
                     {
-                        data: 'checkin_time',
-                        name: 'checkin_time',
+                        data: 'leaders',
+                        name: 'leaders',
                         class: 'text-center',
                     },
                     {
-                        data: 'checkout_time',
-                        name: 'checkout_time',
+                        data: 'members',
+                        name: 'members',
+                        class: 'text-center',
+                    },
+                    {
+                        data: 'start_date',
+                        name: 'start_date',
+                        class: 'text-center',
+                    },
+                    {
+                        data: 'deadline',
+                        name: 'deadline',
+                        class: 'text-center',
+                    },
+                    {
+                        data: 'priority',
+                        name: 'priority',
+                        class: 'text-center',
+                    },
+                    {
+                        data: 'status',
+                        name: 'status',
                         class: 'text-center',
                     },
                     {
@@ -67,7 +91,7 @@
                     },
                 ],
                 order: [
-                    [3, 'desc']
+                    [10, 'desc']
                 ],
             });
             $(document).on("click", ".delete-btn", function(e) {
@@ -83,7 +107,7 @@
 
                             $.ajax({
                                     method: "DELETE",
-                                    url: `/attendance/${id}`,
+                                    url: `/project/${id}`,
                                 })
                                 .done(function(res) {
                                     table.ajax.reload();

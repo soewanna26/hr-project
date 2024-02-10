@@ -136,6 +136,14 @@
                                 </a>
                             </li>
                         @endcan
+                        @can('view_project')
+                            <li>
+                                <a href="{{ route('project.index') }}">
+                                    <i class="fas fa-toolbox"></i>
+                                    <span>Project</span>
+                                </a>
+                            </li>
+                        @endcan
                         @can('view_attendance')
                             <li>
                                 <a href="{{ route('attendance.index') }}">

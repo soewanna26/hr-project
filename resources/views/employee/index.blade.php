@@ -21,7 +21,7 @@
                     <th class="text-center">Role Or Designation</th>
                     <th class="text-center">Is Present</th>
                     <th class="text-center no-sort">Action</th>
-                    <th class="text-center hidden no-sort no-search">Updated At</th>
+                    <th class="text-center hidden no-search">Updated At</th>
                 </thead>
             </table>
         </div>

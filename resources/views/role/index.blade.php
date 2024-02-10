@@ -15,7 +15,7 @@
                     <th class="text-center">Name</th>
                     <th class="text-center">Permissions</th>
                     <th class="text-center no-sort">Action</th>
-                    <th class="text-center hidden no-sort no-search">Updated At</th>
+                    <th class="text-center hidden no-search">Updated At</th>
                 </thead>
             </table>
         </div>
