@@ -257,16 +257,44 @@ class ProjectController extends Controller
         if (!auth()->user()->can('delete_project')) {
             abort(403, 'Unauthorized action');
         }
+
         $project = Project::findOrFail($id);
+
+        if ($project->images) {
+            foreach ($project->images as $image) {
+                $imagePath = public_path('storage/project/' . $image);
+                if (file_exists($imagePath)) {
+                    unlink($imagePath);
+                }
+            }
+        }
+
+        // Delete project files
+        if ($project->files) {
+            foreach ($project->files as $file) {
+                $filePath = public_path('storage/project/' . $file);
+                if (file_exists($filePath)) {
+                    unlink($filePath);
+                }
+            }
+        }
+
+
+        // Delete project leaders
         $project_leaders = ProjectLeader::where('project_id', $project->id)->get();
-        foreach ($project_leaders as  $project_leader) {
+        foreach ($project_leaders as $project_leader) {
             $project_leader->delete();
         }
+
+        // Delete project members
         $project_members = ProjectMember::where('project_id', $project->id)->get();
-        foreach ($project_members as  $project_member) {
+        foreach ($project_members as $project_member) {
             $project_member->delete();
         }
+
+        // Delete the project itself
         $project->delete();
+
         return 'success';
     }
 }
