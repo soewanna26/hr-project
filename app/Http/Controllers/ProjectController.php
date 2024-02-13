@@ -146,22 +146,24 @@ class ProjectController extends Controller
         $project->files = $file_names;
         $project->save();
 
-        foreach (($request->leaders ?? []) as $leader) {
-            ProjectLeader::firstOrCreate(
-                [
-                    'project_id' => $project->id,
-                    'user_id' => $leader,
-                ]
-            );
-        }
-        foreach (($request->members ?? []) as $member) {
-            ProjectMember::firstOrCreate(
-                [
-                    'project_id' => $project->id,
-                    'user_id' => $member,
-                ]
-            );
-        }
+        // foreach (($request->leaders ?? []) as $leader) {
+        //     ProjectLeader::firstOrCreate(
+        //         [
+        //             'project_id' => $project->id,
+        //             'user_id' => $leader,
+        //         ]
+        //     );
+        // }
+        // foreach (($request->members ?? []) as $member) {
+        //     ProjectMember::firstOrCreate(
+        //         [
+        //             'project_id' => $project->id,
+        //             'user_id' => $member,
+        //         ]
+        //     );
+        // }
+        $project->leaders()->sync($request->leaders);
+        $project->members()->sync($request->members);
         return redirect()->route('project.index')->with('create', 'Successfully Created project');
     }
 
@@ -230,22 +232,24 @@ class ProjectController extends Controller
         $project->files = $file_names;
         $project->update();
 
-        foreach (($request->leaders ?? []) as $leader) {
-            ProjectLeader::firstOrCreate(
-                [
-                    'project_id' => $project->id,
-                    'user_id' => $leader,
-                ]
-            );
-        }
-        foreach (($request->members ?? []) as $member) {
-            ProjectMember::firstOrCreate(
-                [
-                    'project_id' => $project->id,
-                    'user_id' => $member,
-                ]
-            );
-        }
+        // foreach (($request->leaders ?? []) as $leader) {
+        //     ProjectLeader::firstOrCreate(
+        //         [
+        //             'project_id' => $project->id,
+        //             'user_id' => $leader,
+        //         ]
+        //     );
+        // }
+        // foreach (($request->members ?? []) as $member) {
+        //     ProjectMember::firstOrCreate(
+        //         [
+        //             'project_id' => $project->id,
+        //             'user_id' => $member,
+        //         ]
+        //     );
+        // }
+        $project->leaders()->sync($request->leaders);
+        $project->members()->sync($request->members);
         return redirect()->route('project.index')->with('edit', 'Successfully Edit project');
     }
 
@@ -278,19 +282,20 @@ class ProjectController extends Controller
                 }
             }
         }
-
+        $project ->leaders()->detach();
+        $project ->members()->detach();
 
         // Delete project leaders
-        $project_leaders = ProjectLeader::where('project_id', $project->id)->get();
-        foreach ($project_leaders as $project_leader) {
-            $project_leader->delete();
-        }
+        // $project_leaders = ProjectLeader::where('project_id', $project->id)->get();
+        // foreach ($project_leaders as $project_leader) {
+        //     $project_leader->delete();
+        // }
 
-        // Delete project members
-        $project_members = ProjectMember::where('project_id', $project->id)->get();
-        foreach ($project_members as $project_member) {
-            $project_member->delete();
-        }
+        // // Delete project members
+        // $project_members = ProjectMember::where('project_id', $project->id)->get();
+        // foreach ($project_members as $project_member) {
+        //     $project_member->delete();
+        // }
 
         // Delete the project itself
         $project->delete();

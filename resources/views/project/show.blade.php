@@ -3,10 +3,10 @@
 @section('content')
     <div class="row">
         <div class="col-md-9">
-            <div class="card">
+            <div class="card mb-3">
                 <div class="card-body">
                     <h5>{{ $project->title }}</h5>
-                    <p class="mb-3">Start Date :<span class="text-muted"> {{ $project->start_date }}</span> , Deadline :
+                    <p class="mb-4">Start Date :<span class="text-muted"> {{ $project->start_date }}</span> , Deadline :
                         <span class="text-muted">{{ $project->deadline }}</span>
                     </p>
                     <p class="mb-3">Priority :
@@ -30,17 +30,16 @@
                     <p class="mb-1">{{ $project->description }}</p>
                 </div>
             </div>
-        </div>
-        <div class="col-md-3">
             <div class="card mb-3">
                 <div class="card-body">
                     <h5>Image</h5>
-                    @if ($project->images)
-                        @foreach ($project->images as $image)
-                            <img src="{{ asset('stroage/project/' . $image) }}" alt="" class="image-thumbnail">
-                        @endforeach
-
-                    @endif
+                    <div id="images">
+                        @if ($project->images)
+                            @foreach ($project->images as $image)
+                                <img src="{{ asset('storage/project/' . $image) }}" alt="" class="image-thumbnail">
+                            @endforeach
+                        @endif
+                    </div>
                 </div>
             </div>
             <div class="card mb-3">
@@ -49,10 +48,30 @@
                     @if ($project->files)
                         @foreach ($project->files as $file)
                             <a href="{{ asset('storage/project/' . $file) }}" class="pdf-thumbnail" target="_blank"><i
-                                    class="fas fa-file-pdf"></i><p class="mb-0">File{{$loop->iteration}}</p></a>
+                                    class="fas fa-file-pdf"></i>
+                                <p class="mb-0">File{{ $loop->iteration }}</p>
+                            </a>
                         @endforeach
 
                     @endif
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5>Leader</h5>
+                    @foreach ($project->leaders ?? [] as $leader)
+                        <img src="{{ $leader->profile_img_path() }}" alt="" class="profile-thumbnail2">
+                    @endforeach
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h5>Member</h5>
+                    @foreach ($project->members ?? [] as $member)
+                        <img src="{{ $member->profile_img_path() }}" alt="" class="profile-thumbnail2">
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -61,7 +80,7 @@
 @section('script')
     <script>
         $(document).ready(function() {
-
+            new Viewer(document.getElementById('images'));
         });
     </script>
 @endsection

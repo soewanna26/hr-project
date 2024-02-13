@@ -16,9 +16,11 @@ use App\Http\Controllers\CompanySettingController;
 use App\Http\Controllers\CheckinCheckoutController;
 use App\Http\Controllers\MyAttendanceController;
 use App\Http\Controllers\MyPayrollController;
+use App\Http\Controllers\MyProjectController;
 use App\Http\Controllers\PayrollController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SalaryController;
+use App\Http\Controllers\TaskController;
 
 /*
 |--------------------------------------------------------------------------
@@ -83,5 +85,11 @@ Route::middleware('auth')->group(function()
 
     Route::resource('project',ProjectController::class);
     Route::get('project/datatable/ssd',[ProjectController::class,'ssd']);
+
+    Route::resource('myproject',MyProjectController::class,)->only(['index','show']);
+    Route::get('myproject/datatable/ssd',[MyProjectController::class,'ssd']);
+
+    Route::resource('task',TaskController::class);
+    Route::get('task-data',[TaskController::class,'taskData']);
 }
 );

@@ -45,6 +45,9 @@
         href="https://cdn.jsdelivr.net/npm/@ttskch/select2-bootstrap4-theme@x.x.x/dist/select2-bootstrap4.min.css">
 
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+
+    {{-- image --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.6/viewer.min.css">
     @yield('extra_css')
 </head>
 
@@ -233,7 +236,7 @@
                             <i class="fas fa-user-clock"></i>
                             <p class="mb-0">Attendence</p>
                         </a>
-                        <a href="">
+                        <a href="{{route('myproject.index')}}">
                             <i class="fas fa-briefcase"></i>
                             <p class="mb-0">Project</p>
                         </a>
@@ -286,6 +289,9 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     <script src="{{ Vite::asset('resources/js/vendor/webauthn/webauthn.js') }}"></script>
+
+    {{-- image js --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.6/viewer.min.js"></script>
 
     @vite(['resources/js/app.js'])
     {{-- side bar --}}

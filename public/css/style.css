@@ -583,6 +583,15 @@ table.dataTable > tbody > tr.child ul.dtr-details > li {
     margin: 3px;
     background: #fff;
 }
+.profile-thumbnail3 {
+    width: 30px;
+    height: 30px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    padding: 3px;
+    margin: 3px;
+    background: #fff;
+}
 .dash-border {
     border-left: 2px dashed #ddd;
 }
@@ -594,6 +603,10 @@ mark {
 .table td,
 .table th {
     vertical-align: middle !important;
+}
+
+.md-form label.active{
+    transform: translateY(-25px) scale(0.8) !important;
 }
 .text-theme {
     color: #4cd195 !important;
@@ -616,11 +629,11 @@ mark {
     font-size: 38px;
 }
 
-.biometric-data i.fa-fingerprint{
-    color:#fe4f60;
+.biometric-data i.fa-fingerprint {
+    color: #fe4f60;
 }
-.biometric-data .biometric-delete-btn{
-    color:#fe4f60;
+.biometric-data .biometric-delete-btn {
+    color: #fe4f60;
     width: 25px;
     height: 25px;
     border-radius: 100%;
@@ -631,19 +644,21 @@ mark {
     right: 3px;
 }
 
-.biometric-login-btn{
+.biometric-login-btn {
     width: 120px;
     padding: 15px;
     border: 1px solid #fff;
     border-radius: 10px;
     text-transform: none;
 }
-.biometric-login-btn i.fa-fingerprint{
+.biometric-login-btn i.fa-fingerprint {
     font-size: 38px;
 }
 
 /* ----select2---- */
-.select2-container--bootstrap4 .select2-selection--multiple .select2-selection__choice__remove {
+.select2-container--bootstrap4
+    .select2-selection--multiple
+    .select2-selection__choice__remove {
     float: left;
     padding-right: 3px;
     padding-left: 3px;
@@ -658,22 +673,29 @@ mark {
 .select2-container--bootstrap4 .select2-selection--multiple {
     padding: 0 3px;
     min-height: calc(1.5em + 0.75rem + 2px) !important;
+    line-height: 26px !important;
 }
-.image-thumbnail{
+.select2-container--bootstrap4
+    .select2-selection--multiple
+    .select2-search__field {
+    margin: 0 !important;
+    width: 90% !important;
+}
+.image-thumbnail {
     background: #fff;
     width: 75px;
     height: 75px;
     border-radius: 10px;
-    border:1px solid #ddd;
+    border: 1px solid #ddd;
     padding: 3px;
     margin: 3px;
 }
-.pdf-thumbnail{
+.pdf-thumbnail {
     background: #fff;
     width: 60px;
     height: 75px;
     border-radius: 10px;
-    border:1px solid #ddd;
+    border: 1px solid #ddd;
     padding: 10px;
     margin: 3px;
     display: inline-block;
@@ -682,4 +704,38 @@ mark {
 }
 .pdf-thumbnail i {
     font-size: 32px;
+}
+/* sweetalert2 */
+.swal2-title {
+    font-size: 20px !important;
+}
+
+/* test */
+.task-item {
+    background: #fff;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    padding: 8px;
+    margin-bottom: 5px !important;
+}
+
+.add_task_btn {
+    display: block;
+    text-align: center;
+    padding: 10px !important;
+    color: #000;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.text-action a {
+    width: 28px;
+    height: 28px;
+    background: #eee;
+    display: inline-block;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 32px;
+    font-size: 15px;
 }
