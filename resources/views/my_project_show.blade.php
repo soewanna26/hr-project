@@ -18,6 +18,11 @@
         .select2-container {
             z-index: 9999 !important;
         }
+
+        .ghost {
+            background: #eee;
+            border: 2px dashed #333;
+        }
     </style>
 @endsection
 <div class="row">
@@ -98,14 +103,93 @@
 <div class="task-data"></div>
 @endsection
 @section('script')
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
 <script>
     $(document).ready(function() {
-        new Viewer(document.getElementById('images'));
         var project_id = "{{ $project->id }}";
         var leaders = @json($project->leaders);
         var members = @json($project->members);
 
-        taskData();
+        function initSortable() {
+            var pendingTashBoard = document.getElementById('pendingTashBoard');
+            var inProgressTashBoard = document.getElementById('inProgressTashBoard');
+            var completeTashBoard = document.getElementById('completeTashBoard');
+            Sortable.create(pendingTashBoard, {
+                group: "taskBoard",
+                ghostClass: "ghost",
+                draggable: ".task-item",
+                animation: 200,
+                store: {
+                    set: function(sortable) {
+                        var order = sortable.toArray();
+                        localStorage.setItem('pendingTashBoard', order.join(','));
+                    }
+                },
+                onSort: function(evt) {
+                    setTimeout(function() {
+                        var pendingTashBoard = localStorage.getItem('pendingTashBoard');
+                        $.ajax({
+                            url: `/task-draggable?project_id=${project_id}&pendingTashBoard=${pendingTashBoard}`,
+                            type: 'GET',
+                            success: function(res) {
+                                console.log(res);
+                            }
+                        }, 2000);
+
+                    });
+                },
+            });
+            Sortable.create(inProgressTashBoard, {
+                group: "taskBoard",
+                ghostClass: "ghost",
+                draggable: ".task-item",
+                animation: 200,
+                store: {
+                    set: function(sortable) {
+                        var order = sortable.toArray();
+                        localStorage.setItem('inProgressTashBoard', order.join(','));
+                    }
+                },
+                onSort: function(evt) {
+                    setTimeout(function() {
+                        var inProgressTashBoard = localStorage.getItem('inProgressTashBoard');
+                        $.ajax({
+                            url: `/task-draggable?project_id=${project_id}&inProgressTashBoard=${inProgressTashBoard}`,
+                            type: 'GET',
+                            success: function(res) {
+                                console.log(res);
+                            }
+                        }, 2000);
+
+                    });
+                },
+            });
+            Sortable.create(completeTashBoard, {
+                group: "taskBoard",
+                ghostClass: "ghost",
+                draggable: ".task-item",
+                animation: 200,
+                store: {
+                    set: function(sortable) {
+                        var order = sortable.toArray();
+                        localStorage.setItem('completeTashBoard', order.join(','));
+                    }
+                },
+                onSort: function(evt) {
+                    setTimeout(function() {
+                        var completeTashBoard = localStorage.getItem('completeTashBoard');
+                        $.ajax({
+                            url: `/task-draggable?project_id=${project_id}&completeTashBoard=${completeTashBoard}`,
+                            type: 'GET',
+                            success: function(res) {
+                                console.log(res);
+                            }
+                        }, 2000);
+
+                    });
+                },
+            });
+        }
 
         function taskData() {
             $.ajax({
@@ -113,10 +197,12 @@
                 type: 'GET',
                 success: function(res) {
                     $('.task-data').html(res);
-                }
+                    initSortable();
+                },
             });
         }
-
+        taskData();
+        new Viewer(document.getElementById('images'));
         $(document).on('click', '.add_pending_task_btn', function(event) {
             event.preventDefault();
             var test_members_options = '';
@@ -455,6 +541,7 @@
                     }
                 });
         })
+
     });
 </script>
 @endsection

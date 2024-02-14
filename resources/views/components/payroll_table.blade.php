@@ -15,8 +15,11 @@
             @foreach ($employees as $employee)
                 @php
                     $attendanceDays = 0;
-                    $salary = collect($employee->salaries)->where('month',$month)->where('year',$year)->first();
-                    $perDay = $salary ? ($salary->amount / $workingDays) : 0;
+                    $salary = collect($employee->salaries)
+                        ->where('month', $month)
+                        ->where('year', $year)
+                        ->first();
+                    $perDay = $salary ? $salary->amount / $workingDays : 0;
                 @endphp
                 @foreach ($periods as $period)
                     @php
@@ -30,20 +33,28 @@
                             ->where('date', $period->format('Y-m-d'))
                             ->first();
                         if ($attendance) {
-                            if ($attendance->checkin_time < $office_start_time) {
-                                $attendanceDays += 0.5;
-                            } elseif ($attendance->checkin_time > $office_start_time && $attendance->checkin_time < $break_start_time) {
-                                $attendanceDays += 0.5;
+                            if (!is_null($attendance->checkin_time)) {
+                                if ($attendance->checkin_time < $office_start_time) {
+                                    $attendanceDays += 0.5;
+                                } elseif ($attendance->checkin_time > $office_start_time && $attendance->checkin_time < $break_start_time) {
+                                    $attendanceDays += 0.5;
+                                } else {
+                                    $attendanceDays += 0;
+                                }
                             } else {
                                 $attendanceDays += 0;
                             }
 
-                            if ($attendance->checkout_time < $break_end_time) {
-                                $attendanceDays += 0;
-                            } elseif ($attendance->checkout_time > $break_end_time && $attendance->checkout_time < $office_end_time) {
-                                $attendanceDays += 0.5;
+                            if (!is_null($attendance->checkout_time)) {
+                                if ($attendance->checkout_time < $break_end_time) {
+                                    $attendanceDays += 0;
+                                } elseif ($attendance->checkout_time > $break_end_time && $attendance->checkout_time < $office_end_time) {
+                                    $attendanceDays += 0.5;
+                                } else {
+                                    $attendanceDays += 0.5;
+                                }
                             } else {
-                                $attendanceDays += 0.5;
+                                $attendanceDays += 0;
                             }
                         }
                     @endphp
