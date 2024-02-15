@@ -67,6 +67,7 @@ Route::middleware('auth')->group(
         Route::get('attendance/datatable/ssd', [AttendanceController::class, 'ssd']);
         Route::get('attendance-overview', [AttendanceController::class, 'overview'])->name('attendance.overview');
         Route::get('attendance-overview-table', [AttendanceController::class, 'overviewTable']);
+        Route::get('attendance-downloadpdf', [AttendanceController::class, 'downloadPDF']);
 
         Route::get('/attendance-scan', [AttendanceScanController::class, 'scan'])->name('attendance-scan');
         Route::post('/attendance-scan/store', [AttendanceScanController::class, 'scanStore'])->name('attendance-scan.store');
